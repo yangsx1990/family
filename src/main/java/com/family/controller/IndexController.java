@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +20,7 @@ import java.util.Date;
  * @description
  * @date Created in 下午3:58 2017/11/2
  */
-@RestController
+@Controller
 public class IndexController {
 
     @Autowired
@@ -27,9 +29,15 @@ public class IndexController {
     @Value("${upload.path}")
     private String uploadPath;
 
-    @RequestMapping("/test")
+   /* @RequestMapping("/test")
     public void test(){
         System.out.println("222");
+    }*/
+
+    @RequestMapping("/marker")
+    public String marker(Model model){
+        model.addAttribute("title","示例");
+        return "uploadPage";
     }
 
     @RequestMapping("/upload")
@@ -38,7 +46,7 @@ public class IndexController {
             throw new RuntimeException("上传图片不能为空");
         }
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-        String fileName = new SimpleDateFormat().format(new Date()) + suffix;
+        String fileName = System.currentTimeMillis() + suffix;
         String path = fileService.upload(file, fileName, uploadPath);
         return new ResponseEntity<String>(path, HttpStatus.OK);
     }
