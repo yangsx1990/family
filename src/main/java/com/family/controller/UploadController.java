@@ -21,7 +21,7 @@ import java.util.Date;
  * @date Created in 下午3:58 2017/11/2
  */
 @Controller
-public class IndexController {
+public class UploadController {
 
     @Autowired
     FileService fileService;
@@ -40,6 +40,11 @@ public class IndexController {
         return "uploadPage";
     }
 
+    /**
+     * 上传文件
+     * @param file 文件流
+     * @return
+     */
     @RequestMapping("/upload")
     public ResponseEntity<String> upload(@RequestParam("test") MultipartFile file) {
         if (file.isEmpty()) {
