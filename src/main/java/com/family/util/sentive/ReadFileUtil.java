@@ -12,7 +12,9 @@ public class ReadFileUtil {
 
     public static void main(String[] args) {
         String txtFile="/Users/yangsaixing/Documents/doc/其他/SensitiveWord.txt";
-        new ReadFileUtil().readByBuffer(txtFile);
+        String destFile="/Users/yangsaixing/Documents/doc/其他/SensitiveWord1.txt";
+        //new ReadFileUtil().readByBuffer(txtFile);
+        new ReadFileUtil().copyFile(txtFile,destFile);
 
     }
 
@@ -79,4 +81,30 @@ public class ReadFileUtil {
         }
     }
 
+    /**
+     * 使用FileOutputStream拷贝文件
+     * @param src 原文件路径
+     * @param dest 目标文件路径
+     */
+    public void copyFile(String src,String dest){
+        FileInputStream in= null;
+        try {
+            in = new FileInputStream(new File(src));
+            File file=new File(dest);
+            if(!file.exists())
+                file.createNewFile();
+            FileOutputStream out=new FileOutputStream(file);
+            int c;
+            byte buffer[]=new byte[1024];
+            while((c=in.read(buffer))!=-1){
+                for(int i=0;i<c;i++)
+                    out.write(buffer[i]);
+            }
+            in.close();
+            out.close();
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

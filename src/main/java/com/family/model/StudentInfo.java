@@ -5,89 +5,89 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 
-@Table(name = "student_info")
+//@Table(name = "student_info")
 public class StudentInfo
 {
 	/**主键id*/
 
-	@Id
+/*	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	/**内网学号*/
+	*//**内网学号*//*
     @Column(name ="SYSTEM_NO")
 	private String systemNo;
-	/**学生姓名*/
+	*//**学生姓名*//*
     @Column(name ="NAME")
 	private String name;
 
-    /**姓名拼音**/
+    *//**姓名拼音**//*
     @Column(name="pinyin")
     private String pinyin;
-	/**性别*/
+	*//**性别*//*
     @Column(name ="GENDER")
 	private Integer gender;
-	/**出生日期*/
+	*//**出生日期*//*
     @Column(name ="BIRTHDAY")
 	private Date birthday;
-	/**家庭住址*/
+	*//**家庭住址*//*
 	@Column(name ="ADDRESS")
 	private String address;
- 	/**移动电话*/
+ 	*//**移动电话*//*
     @Column(name ="MOBILE")
 	private String mobile;
-	/**固定电话*/
+	*//**固定电话*//*
     @Column(name ="FIXED_PHONE")
 	private String fixedPhone;
-	/**邮政编码*/
+	*//**邮政编码*//*
     @Column(name ="POSTALCODE")
 	private String postalcode;
-	/**qq号*/
+	*//**qq号*//*
     @Column(name ="QQ_NUMBER")
 	private String qqNumber;
-	/**微信号*/
+	*//**微信号*//*
     @Column(name ="WEICHAT_NUMBER")
 	private String weichatNumber;
-	/**邮箱*/
+	*//**邮箱*//*
     @Column(name ="EMAIL")
 	private String email;
-	/**分支机构id*/
+	*//**分支机构id*//*
     @Column(name ="BRANCH_ID")
 	private Integer branchId;
-	/**是否为vip用户：0-否 1-是*/
+	*//**是否为vip用户：0-否 1-是*//*
     @Column(name ="VIP_STATUS")
 	private Integer vipStatus;
-	/**是否毕业：0-否 1-是*/
+	*//**是否毕业：0-否 1-是*//*
     @Column(name ="GRADUATION_STATUS")
 	private Integer graduationStatus;
-	/**所在学校*/
+	*//**所在学校*//*
     @Column(name ="SCHOOL")
 	private String school;
-	/**当前学历*/
+	*//**当前学历*//*
     @Column(name ="EDUCATION")
 	private String education;
-	/**专业*/
+	*//**专业*//*
     @Column(name ="MAJOR")
 	private String major;
-	/**年级*/
+	*//**年级*//*
     @Column(name ="GRADE")
 	private String grade;
-	/**申请账号*/
+	*//**申请账号*//*
     @Column(name ="EMAIL_ACCOUNT")
 	private String emailAccount;
-	/**申请密码*/
+	*//**申请密码*//*
     @Column(name ="EMAIL_PASSWORD")
 	private String emailPassword;
 
-    /**分支机构名称**/
+    *//**分支机构名称**//*
     @Column(name="branch_name")
 	private String branchName;
 
-	/**海外住址**/
+	*//**海外住址**//*
     @Column(name="overseas_address")
     private String overseasAddress;
 
-	/**海外联系方式**/
+	*//**海外联系方式**//*
 	@Column(name="overseas_phone")
 	private String overseasPhone;
 
@@ -289,5 +289,5 @@ public class StudentInfo
 
 	public void setOverseasPhone(String overseasPhone) {
 		this.overseasPhone = overseasPhone;
-	}
+	}*/
 }
