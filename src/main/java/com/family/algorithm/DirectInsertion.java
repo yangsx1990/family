@@ -41,7 +41,7 @@ public class DirectInsertion {
     }
 
     //从后往前比较
-    private static void sort1(Integer[] arrays){
+    public static void sort1(Integer[] arrays){
         int n=arrays.length;
         for (int i=1;i<n;i++){
             int temp=arrays[i];

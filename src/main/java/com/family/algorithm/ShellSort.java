@@ -8,6 +8,7 @@ package com.family.algorithm;
 public class ShellSort {
     public static void main(String[] args) {
         Integer[] toSortArrays={4,1,91,2,5,67,35,26};
+        printArrays(toSortArrays);
         sort(toSortArrays);
     }
 
@@ -21,7 +22,7 @@ public class ShellSort {
             while(step>=1) {
                 System.out.println("step的值是"+step);
                 int arrayLast=step;
-                for (int i = 0; i < arrays.length && arrayLast < arrays.length; i++) {
+                for (int i = 0; i < step && arrayLast < arrays.length; i++) {
                     //交换元素
                     if (arrays[i] > arrays[arrayLast]) {
                         int tempData = arrays[i];
@@ -39,6 +40,16 @@ public class ShellSort {
 
     }
 
+    private  static  void sort1(Integer[] arrays){
+        Integer step=0;
+        step=arrays.length/2;
+        for (int i=0;i<arrays.length;){
+            Integer[] sortArray=new Integer[4];
+            sortArray[0]=arrays[i];
+            //sortArray[]
+            new DirectInsertion().sort1(sortArray);
+        }
+    }
     private static void printArrays(Integer[] arrays){
         for (int j=0;j<arrays.length;j++){
             System.out.print(arrays[j]+",");
