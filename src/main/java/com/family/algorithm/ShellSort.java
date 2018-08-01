@@ -8,7 +8,7 @@ package com.family.algorithm;
 public class ShellSort {
     public static void main(String[] args) {
         Integer[] toSortArrays={4,1,91,2,5,67,35,26};
-        printArrays(toSortArrays);
+        new SortUtil(). printArrays(toSortArrays);
         sort(toSortArrays);
     }
 
@@ -32,7 +32,7 @@ public class ShellSort {
 
                     arrayLast++;
                 }
-                printArrays(arrays);
+                new SortUtil(). printArrays(arrays);
                 step=step/2;
             }
         }
@@ -50,9 +50,5 @@ public class ShellSort {
             new DirectInsertion().sort1(sortArray);
         }
     }
-    private static void printArrays(Integer[] arrays){
-        for (int j=0;j<arrays.length;j++){
-            System.out.print(arrays[j]+",");
-        }
-    }
+
 }
