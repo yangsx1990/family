@@ -16,9 +16,8 @@ public class PrefectNumber {
 
 
     public static void main(String[] args) {
-        /*Boolean status=judgement(28);
-        System.out.println(status);*/
-
+        Boolean status=judgement(28);
+        System.out.println(status);
 
     }
 
