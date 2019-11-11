@@ -13,13 +13,15 @@ import java.util.List;
  * @description
  * @date Created in 下午5:38 2018/1/29
  */
-@Service
+//@Service
 public class AgencyServiceImpl implements AgencyService{
     @Autowired
     AgencyInfoMapper agencyInfoMapper;
 
     @Override
     public List<AgencyInfo> queryAgency(AgencyInfo agencyInfo) {
-        return agencyInfoMapper.select(agencyInfo);
+        System.out.println("查询list");
+        return null;
+        //return agencyInfoMapper.select(agencyInfo);
     }
 }
