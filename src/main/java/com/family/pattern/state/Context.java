@@ -1,5 +1,8 @@
 package com.family.pattern.state;
 
+/**
+ * 状态模式的上下文类
+ */
 public class Context {
 
     State state;
