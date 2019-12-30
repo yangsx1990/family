@@ -20,8 +20,6 @@ public class AgencyServiceImpl implements AgencyService{
 
     @Override
     public List<AgencyInfo> queryAgency(AgencyInfo agencyInfo) {
-        System.out.println("查询list");
-        return null;
-        //return agencyInfoMapper.select(agencyInfo);
+       return agencyInfoMapper.select(agencyInfo);
     }
 }

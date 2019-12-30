@@ -11,23 +11,31 @@ public class MainClass {
         /*new SecondClass().add();
         new ThirdClass().add();*/
 
-        //向上转型
-        FirstClass firstClass=new SecondClass();
-        firstClass.add();
 
-        //向下转型
+        AbstractFirstClass abstractFirstClass =new SecondClass();
+        abstractFirstClass.add();
+
+        SecondClass secondClass=new FourthClass();
+
+        if(secondClass instanceof SecondClass){
+            FourthClass fourthClass=(FourthClass)secondClass;
+        }
+
         /*SecondClass secondClass=new SecondClass();
         FourthClass fourthClass=(FourthClass)secondClass;
 
         fourthClass.add();
 
+
+
+
         System.out.println(secondClass instanceof  FourthClass);
         System.out.println(secondClass instanceof  SecondClass);*/
 
-        if(firstClass instanceof SecondClass){
+        /*if(firstClass instanceof SecondClass){
             SecondClass secondClass=(SecondClass) firstClass;
             secondClass.add();
-        }
+        }*/
 
 
     }

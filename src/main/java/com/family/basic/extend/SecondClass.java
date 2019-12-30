@@ -6,7 +6,7 @@ package com.family.basic.extend;
  * @date: Created in 2019/11/26 下午5:33
  * @modified By:
  */
-public class SecondClass extends FirstClass {
+public class SecondClass extends AbstractFirstClass {
 
     @Override
     public void add() {
