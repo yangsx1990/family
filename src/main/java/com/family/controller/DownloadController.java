@@ -1,7 +1,11 @@
 package com.family.controller;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +14,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 /**
  * @author yangsaixing
@@ -193,4 +198,68 @@ public class DownloadController {
         br.close();
         out.close();
     }*/
+
+    @RequestMapping("export/demo")
+    public String getExportPage(){
+        return "export";
+    }
+
+    @RequestMapping(value = "export/excel/demo",method = RequestMethod.POST)
+    public void export(HttpServletRequest request,String name,HttpServletResponse response) throws IOException {
+      /*  System.out.println(request.getContentType());
+        // 下载网络文件
+        int bytesum = 0;
+        int byteread = 0;
+
+
+        try {
+            URL url = new URL(urlPath+urlPic);
+            String ext = urlPic.substring(urlPic.lastIndexOf(".") + 1).toUpperCase();
+            URLConnection conn = url.openConnection();
+            InputStream inStream = conn.getInputStream();
+            File file=new File("/Users/yangsaixing/Documents/abc"+ext);
+            response.setContentType("application/octet-stream");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + urlPic + "\"");
+            FileOutputStream fs = new FileOutputStream(file);
+            ServletOutputStream out=response.getOutputStream();
+//
+//            byte[] buffer = new byte[1204];
+//            while ((byteread = inStream.read(buffer)) != -1) {
+//                bytesum += byteread;
+//                fs.write(buffer, 0, byteread);
+//            }
+//
+//            File file=new File("/Users/yangsaixing/Documents/abc.gif");
+//            InputStream inputStream=new FileInputStream(file);
+            byte[] bufferout = new byte[512]; // 缓冲区
+            int bytesToRead = -1;
+            // 通过循环将读入的Excel文件的内容输出到浏览器中
+            while ((bytesToRead = inStream.read(bufferout)) != -1) {
+                out.write(bufferout, 0, bytesToRead);
+            }
+            out.flush();
+            if (inStream != null) {
+                inStream.close();
+            }
+            file.delete();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition","attachment;filename=" + URLEncoder.encode("优惠券导出"+ ".xls", "UTF-8"));
+        ServletOutputStream out = response.getOutputStream();
+        BufferedOutputStream buffOut = null;
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("优惠券数据");
+        XSSFRow row = sheet.createRow(0);
+        row.createCell(0).setCellValue("优惠券码");
+        row.createCell(1).setCellValue("生成批次");
+        buffOut = new BufferedOutputStream(out);
+        wb.write(buffOut);
+    }
 }

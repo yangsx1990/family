@@ -7,5 +7,4 @@ import java.util.List;
 
 
 public interface AgencyInfoMapper extends Mapper<AgencyInfo> {
-    List<AgencyInfo> get(AgencyInfo agencyInfo);
 }

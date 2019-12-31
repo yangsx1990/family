@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="../js/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <form id="test" >
+        <input id="name" name="name"/>
+        <button id="exportExcel">导出excel</button>
+    </form>
+</body>
+<script type="text/javascript">
+    $("#exportExcel").click(function () {
+        var url="http://localhost:8082/export/excel/demo";
+        var form= document.getElementById("test");
+        form.action=url;
+        form.method="post";
+        form.submit();
+
+       /* alert("aa");
+        var params = {"name":"123"};
+        postExcelFile(params, url);*/
+    });
+    function postExcelFile(params, url) { //params是post请求需要的参数，url是请求url地址
+        var form = document.createElement("form");
+        form.style.display = 'none';
+        form.action = url;
+        form.method = "post";
+        document.body.appendChild(form);
+
+        for(var key in params){
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = params[key];
+            form.appendChild(input);
+        }
+
+        form.submit();
+        form.remove();
+    }
+</script>
+</html>

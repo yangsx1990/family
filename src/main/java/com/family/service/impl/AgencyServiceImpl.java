@@ -13,7 +13,7 @@ import java.util.List;
  * @description
  * @date Created in 下午5:38 2018/1/29
  */
-//@Service
+@Service
 public class AgencyServiceImpl implements AgencyService{
     @Autowired
     AgencyInfoMapper agencyInfoMapper;

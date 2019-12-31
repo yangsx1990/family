@@ -5,8 +5,12 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -22,49 +26,35 @@ import java.util.Properties;
  * @description
  * @date Created in 上午10:58 2017/11/10
  */
-@Configuration
-@ConditionalOnClass({ EnableTransactionManagement.class })
-@AutoConfigureAfter({ DataSourceConfig.class })
-public class MybatisConfig{
-
-    @Value("${mybatis.typeAliasesPackage}")
-    private String typeAliasesPackage;
+//@Configuration
+//@ConditionalOnClass({ EnableTransactionManagement.class })
+//@AutoConfigureAfter({ DataSourceConfig.class })
+public class MybatisConfig{//} implements EnvironmentAware {
 
 
-    @Value("${mybatis.mapperLocations}")
-    private String mapperLocations;
 
-
-    @Bean(name = "sqlSessionFactory")
+ /*   @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+*//*
+    //@Bean(name = "sqlSessionFactory")
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 
         // SET dataSource
         sessionFactory.setDataSource(dataSource);
 
-        /** 设置Mybatis 实体类别名扫描包路径 */
-        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
+        *//** 设置Mybatis 实体类别名扫描包路径 *//*
+        sessionFactory.setTypeAliasesPackage(propertyResolver.getProperty("typeAliasesPackage"));
 
-        Resource[] mapperLocation = new PathMatchingResourcePatternResolver().getResources(mapperLocations);
+        Resource[] mapperLocation = new PathMatchingResourcePatternResolver().getResources(propertyResolver.getProperty("mapperLocations"));
         sessionFactory.setMapperLocations(mapperLocation);
         //sessionFactory.setPlugins(new Interceptor[]{pageHelper});
 
         return sessionFactory;
     }
-    @Bean
-    public PageHelper pageHelper(){
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.put("dialect","mysql");
-        properties.put("offsetAsPageNum",true);
-        properties.put("rowBoundsWithCount",true);
-        properties.put("pageSizeZero",true);
-        properties.put("reasonable",true);
-        properties.put("supportMethodsArguments",false);
-        properties.put("returnPageInfo","none");
-        pageHelper.setProperties(properties);
-        return pageHelper;
-    }
+
     // Spring 事务
     @Bean(name = "txManager")
     public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
@@ -87,4 +77,10 @@ public class MybatisConfig{
         return mapperScannerConfigurer;
     }
 
+    private RelaxedPropertyResolver propertyResolver;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.propertyResolver=new RelaxedPropertyResolver(environment,"mybatis.");
+    }*/
 }
