@@ -1,7 +1,6 @@
-package com.family.pattern.proxy.version;
+package com.family.pattern.proxy.version.jdk;
 
 import com.family.model.AgencyInfo;
-import com.family.pattern.proxy.JDKProxy;
 import com.family.service.AgencyService;
 import com.family.service.impl.AgencyServiceImpl;
 
