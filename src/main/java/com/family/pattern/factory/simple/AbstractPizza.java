@@ -11,15 +11,15 @@ public abstract class AbstractPizza {
     String name;
 
 
-    void cut(){
+    public void cut(){
         System.out.println("pizza 切片");
     }
 
-    void box(){
+    public void box(){
         System.out.println("pizza 装盒");
     }
 
-    void bake(){
+    public void bake(){
         System.out.println("pizza 烘烤");
     }
 }

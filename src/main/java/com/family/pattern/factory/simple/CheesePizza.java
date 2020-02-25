@@ -7,5 +7,7 @@ package com.family.pattern.factory.simple;
  * @modified By:
  */
 public class CheesePizza extends AbstractPizza {
-
+    CheesePizza(){
+        System.out.println("这是一个CheesePizza");
+    }
 }
