@@ -1,16 +1,13 @@
 package com.family.controller;
 
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -24,12 +21,12 @@ import java.io.Serializable;
 @Validated
 public class ValidateController {
 
-
+/*
     @RequestMapping("/validate")
     public String test1(@Valid @NotNull(message = "参数不能那个为空") String str,@NotNull Integer id){
         System.out.println();
         return "";
-    }
+    }*/
 
     @RequestMapping("/validate3")
     public String test3(@NotNull(message = "str不能为null") String str,@NotNull(message = "id不能为空") Integer id){
@@ -44,7 +41,7 @@ public class ValidateController {
     }
 
     @RequestMapping("/validate2")
-    public String test3(@Valid @RequestBody Student str){
+    public String test4(@Valid @RequestBody Student str){
         System.out.println();
         return "";
     }
@@ -56,7 +53,7 @@ public class ValidateController {
         @NotNull(message = "姓名不能为空")
         private String name;
 
-        @NotNull(message ="密码不能为空" )
+        @NotEmpty(message ="密码不能为空" )
         private String password;
     }
 }

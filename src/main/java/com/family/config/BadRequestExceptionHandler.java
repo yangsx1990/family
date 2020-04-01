@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
@@ -32,13 +33,8 @@ public class BadRequestExceptionHandler {
 
     private Logger logger= LoggerFactory.getLogger(BadRequestExceptionHandler.class);
 
-    @ExceptionHandler({MethodArgumentNotValidException.class,BindException.class})
+   @ExceptionHandler(MethodArgumentNotValidException.class)
     public void validation(MethodArgumentNotValidException exception){
-      /*  if(exception instanceof BindException){
-            BindException subException=(BindException)exception;
-        }else if(exception instanceof MethodArgumentNotValidException){
-            MethodArgumentNotValidException subException=(MethodArgumentNotValidException)exception;
-        }*/
         BindingResult bindingResult=exception.getBindingResult();
         if(bindingResult.hasErrors()){
             List<ObjectError> errors=bindingResult.getAllErrors();
@@ -50,6 +46,18 @@ public class BadRequestExceptionHandler {
         return;
     }
 
+    @ExceptionHandler(BindException.class)
+    public void validationBind(BindException exception){
+        BindingResult bindingResult=exception.getBindingResult();
+        if(bindingResult.hasErrors()){
+            List<ObjectError> errors=bindingResult.getAllErrors();
+            errors.forEach(e->{
+                FieldError fieldError=(FieldError)e;
+                logger.error("check fail:object:{},filed:{},errorMessage:{}",fieldError.getObjectName(),fieldError.getField(),fieldError.getDefaultMessage());
+            });
+        }
+        return;
+    }
     @ExceptionHandler(HttpMessageConversionException.class)
     public void parameterTypeException(HttpMessageConversionException exception){
         logger.error(exception.getCause().getLocalizedMessage());
@@ -69,4 +77,9 @@ public class BadRequestExceptionHandler {
         return;
     }
 
+  @ExceptionHandler(Exception.class)
+  public void handleException(Exception exception, HttpServletRequest request){
+      logger.error("request:{} exception:{}",request.getRequestURI(),exception.getLocalizedMessage());
+      return;
+  }
 }
