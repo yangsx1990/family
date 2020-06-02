@@ -35,16 +35,13 @@
     <dependencies>
         <!--单元测试相关类，开始-->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>1.4.0.RELEASE</version>
             <scope>test</scope>
         </dependency>
         <!--单元测试相关类，结束-->
@@ -121,7 +118,33 @@
             <artifactId>guava</artifactId>
             <version>20.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.3.2.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
+        <!--pdf 相关-->
+       <!-- <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itextasian</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext-asian</artifactId>
+            <version>5.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
