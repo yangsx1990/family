@@ -43,9 +43,9 @@ public class WaterMarkUtils {
         String iconPath="/Users/yangsaixing/Desktop/a.jpeg";
 
 
-       // new WaterMarkUtils().wordMarkForImg(srcPath,outPath);
-       // new WaterMarkUtils().imgMarkForImg(srcPath,outPath,iconPath);
-        BufferedImage bufferedImage=new BufferedImage(500,300,BufferedImage.TYPE_INT_RGB);
+        //new WaterMarkUtils().wordMarkForImg(srcPath,outPath);
+        new WaterMarkUtils().imgMarkForImg(srcPath,outPath,iconPath);
+      /*  BufferedImage bufferedImage=new BufferedImage(500,300,BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         Image image= null;
         try {
@@ -60,7 +60,7 @@ public class WaterMarkUtils {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -143,6 +143,12 @@ public class WaterMarkUtils {
         if(StringUtils.hasText(iconPath)){
             ImageIcon imageIcon=new ImageIcon(iconPath);
             Image iconImage=imageIcon.getImage();
+           /* Image iconImage= null;
+            try {
+                iconImage = ImageIO.read(new File(iconPath));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
             graphics.drawImage(iconImage,150,300,null);
             graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         }
