@@ -1,5 +1,6 @@
 package com.family.util.sentive;
 
+import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 import javax.imageio.ImageIO;
@@ -9,6 +10,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * @description:
@@ -37,14 +43,17 @@ public class WaterMarkUtils {
     private static Color RED=Color.RED;
 
     public static void main(String[] args) {
-        String srcPath="/Users/yangsaixing/Desktop/WechatIMG251.jpeg";
-        String outPath="/Users/yangsaixing/Desktop/WechatIMG002.jpeg";
 
-        String iconPath="/Users/yangsaixing/Desktop/a.jpeg";
 
+
+        String srcPath="/Users/yangsaixing/Desktop/个人海报.png";
+        String outPath="/Users/yangsaixing/Desktop/test.jpeg";
+
+        String urlPath="http://ks3-cn-beijing.ksyun.com/aojixiaoxi/studentClient/studentHeadPortrait/2020/08/15/1597470909070059885.png";
+        String iconPath="/Users/yangsaixing/Desktop/icon1.jpg";
 
         //new WaterMarkUtils().wordMarkForImg(srcPath,outPath);
-        new WaterMarkUtils().imgMarkForImg(srcPath,outPath,iconPath);
+        new WaterMarkUtils().imgMarkForImg(srcPath,outPath,urlPath);
       /*  BufferedImage bufferedImage=new BufferedImage(500,300,BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         Image image= null;
@@ -62,6 +71,25 @@ public class WaterMarkUtils {
             e.printStackTrace();
         }*/
 
+    }
+
+    private String getIconPath(String urlPath){
+        URL url = null;
+        try {
+            url = new URL(urlPath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String ext = urlPath.substring(urlPath.lastIndexOf(".") + 1).toUpperCase();
+        URLConnection conn = null;
+        try {
+            conn = url.openConnection();
+            InputStream inStream = conn.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file=new File( ClassUtils.getDefaultClassLoader().getResource("").getPath()+"temp."+ext);
+        return file.getPath();
     }
 
     /**
@@ -126,7 +154,7 @@ public class WaterMarkUtils {
     }
 
 
-    private Graphics2D drawImg(Image image,BufferedImage bufferedImage,int srcImgWidth,int srcImgHeight,String iconPath) {
+    private Graphics2D drawImg(Image image,BufferedImage bufferedImage,int srcImgWidth,int srcImgHeight,String iconPath) throws MalformedURLException {
         //加水印
         Graphics2D graphics = bufferedImage.createGraphics();
         graphics.drawImage(image,0,0,srcImgWidth,srcImgHeight,null);
@@ -135,13 +163,13 @@ public class WaterMarkUtils {
         graphics.setFont(font);
         if(DEGREE!=0){
             //设置水印旋转
-            graphics.rotate(Math.toRadians(DEGREE),(double)bufferedImage.getWidth()/2,(double)bufferedImage.getHeight()/2);
+            //graphics.rotate(Math.toRadians(DEGREE),(double)bufferedImage.getWidth()/2,(double)bufferedImage.getHeight()/2);
         }
 
         //水印透明度
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,alpha));
+        //graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,alpha));
         if(StringUtils.hasText(iconPath)){
-            ImageIcon imageIcon=new ImageIcon(iconPath);
+            ImageIcon imageIcon=new ImageIcon(new URL(iconPath));
             Image iconImage=imageIcon.getImage();
            /* Image iconImage= null;
             try {
@@ -149,7 +177,12 @@ public class WaterMarkUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }*/
-            graphics.drawImage(iconImage,150,300,null);
+
+            graphics.drawImage(iconImage,160,1150,null);
+            System.out.println("src height:"+srcImgHeight+" icon height:"+imageIcon.getIconHeight());
+            System.out.println("src width:"+srcImgWidth+" icon width:"+imageIcon.getIconWidth());
+            //设置在图片右下角
+            //graphics.drawImage(iconImage,(srcImgWidth-imageIcon.getIconWidth()),(srcImgHeight-imageIcon.getIconHeight()),null);
             graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
         }
         return graphics;
