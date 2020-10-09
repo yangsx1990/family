@@ -16,7 +16,7 @@ public class User implements Serializable{
 
    //private String remark;
 
-   private Integer id;
+   private transient Integer id;
 
     public Integer getId() {
         return id;
@@ -41,4 +41,12 @@ public class User implements Serializable{
     public void setRemark(String remark) {
         this.remark = remark;
     }*/
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

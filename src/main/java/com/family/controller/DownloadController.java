@@ -1,5 +1,10 @@
 package com.family.controller;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,6 +20,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yangsaixing
@@ -111,7 +118,6 @@ public class DownloadController {
             File file=new File("/Users/yangsaixing/Documents/abc"+ext);
             response.setContentType("application/octet-stream");
             response.addHeader("Content-Disposition", "attachment; filename=\"" + urlPic + "\"");
-            FileOutputStream fs = new FileOutputStream(file);
             ServletOutputStream out=response.getOutputStream();
 //
 //            byte[] buffer = new byte[1204];
@@ -261,5 +267,56 @@ public class DownloadController {
         row.createCell(1).setCellValue("生成批次");
         buffOut = new BufferedOutputStream(out);
         wb.write(buffOut);
+    }
+
+    public void inputExcel()  {
+        String path="/Users/yangsaixing/Desktop/互联网中心2020回京情况1.xls";
+        FileInputStream fileInputStream=null;
+        try {
+            fileInputStream=new FileInputStream(new File(path));
+            POIFSFileSystem poifsFileSystem=new POIFSFileSystem(fileInputStream);
+            HSSFWorkbook hssfWorkbook=new HSSFWorkbook(poifsFileSystem);
+            HSSFSheet sheet=hssfWorkbook.getSheetAt(0);
+            int firstRow=sheet.getFirstRowNum();
+            int lastRow=sheet.getLastRowNum();
+            for(int i=firstRow;i<lastRow;i++){
+                Row row=getRow(sheet,i);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Row getRow(HSSFSheet sheet,int i) {
+        Row row=sheet.getRow(i);
+        System.out.println("第"+i+"行：");
+        if(row==null){
+            return null;
+        }
+        int firstCell=row.getFirstCellNum();
+        int lastCell=row.getLastCellNum();
+
+        List<String> cellList=new ArrayList<>();
+        for(int cellIndex=firstCell;cellIndex<lastCell;cellIndex++){
+            Cell cell=row.getCell(cellIndex);
+            if(cell!=null){
+                cellList.add(cell.toString());
+            }
+        }
+        System.out.println("元素："+cellList);
+        return row;
+
+    }
+
+    public static void main(String[] args) {
+        new DownloadController().inputExcel();
     }
 }

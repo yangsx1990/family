@@ -30,6 +30,21 @@ public class RemoveElement {
         }
         return pointer;
     }
+
+
+    public int removeElementLess(int[] nums,int val){
+        int i=0;
+        int n=nums.length;
+        while (i<n){
+            if(nums[i]==val){
+                nums[i]=nums[n-1];
+                n--;
+            }else {
+                i++;
+            }
+        }
+        return n;
+    }
     private static int[] test(int[] nums, int val) {
         for(int i=0;i<nums.length;i++){
             if(nums[i]==val){

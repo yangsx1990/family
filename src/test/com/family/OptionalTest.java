@@ -1,7 +1,6 @@
 package com.family;
 
 import com.family.model.AgencyInfo;
-import com.family.service.impl.DecoratorAgencyServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @description:
@@ -23,7 +23,7 @@ import java.util.Optional;
 @SpringBootTest
 public class OptionalTest {
 
-    @Autowired
+  /*  @Autowired
     DecoratorAgencyServiceImpl decoratorAgencyService;
 
     @Test
@@ -31,7 +31,7 @@ public class OptionalTest {
         System.out.println(decoratorAgencyService.getUser(2).orElse(new AgencyInfo()));
         System.out.println(decoratorAgencyService.getUser(2));
     }
-
+*/
 
     @Test
     public void returnList(){
@@ -49,5 +49,15 @@ public class OptionalTest {
         }).stream().filter(Objects::nonNull).forEach(k->{
             System.out.println(k.getId());
         });
+    }
+
+
+    @Test
+    public void returnListV2(){
+        List<AgencyInfo> agencyInfos=new ArrayList<>();
+        Optional<AgencyInfo> agencyInfo=agencyInfos.stream().filter(k->k.getAgencyType()==1).findFirst();
+        agencyInfo.ifPresent(c->c.setAgencyName("后期添加"));
+        System.out.println(agencyInfo.orElse(new AgencyInfo()));
+
     }
 }

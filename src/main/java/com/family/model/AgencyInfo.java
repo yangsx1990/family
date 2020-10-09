@@ -1,8 +1,11 @@
 package com.family.model;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "agency_info")
+@Data
 public class AgencyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
