@@ -47,7 +47,7 @@ public class CountDownLatchTest {
         new CountDownLatchTest().timeTasks(5, new Runnable() {
             @Override
             public void run() {
-                //System.out.println("这是最终要做事情的task……");
+                System.out.println("这是最终要做事情的task……");
             }
         });
     }
