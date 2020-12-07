@@ -12,4 +12,6 @@ import java.util.List;
 public interface AgencyService {
 
     List<AgencyInfo> queryAgency(AgencyInfo agencyInfo);
+
+    void test();
 }

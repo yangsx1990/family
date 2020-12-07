@@ -28,5 +28,11 @@ public class TestException {
 
     public static void main(String[] args) {
         System.out.println("userId:"+userId);
+        int hash=100;
+        int n=34;
+        System.out.println((n-1) & hash);
+        System.out.println(hash % n);
+
+        System.out.println( 33 &100 );
     }
 }

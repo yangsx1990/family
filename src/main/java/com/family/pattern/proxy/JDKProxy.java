@@ -3,7 +3,10 @@ package com.family.pattern.proxy;
 import com.family.model.AgencyInfo;
 import com.family.service.AgencyService;
 import com.family.service.impl.AgencyServiceImpl;
+import sun.misc.ProxyGenerator;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -38,11 +41,39 @@ public class JDKProxy implements InvocationHandler{
     }
 
     public static void main(String[] args) {
+        saveProxyFile();
         JDKProxy jdkProxy=new JDKProxy();
         //获取代理对象
         AgencyService agencyService=(AgencyService)jdkProxy.getJDKProxy(new AgencyServiceImpl());
         //执行代理对象的方法
-        agencyService.queryAgency(new AgencyInfo());
+        AgencyInfo agencyInfo=new AgencyInfo();
+        agencyInfo.setId(11);
+        agencyService.queryAgency(agencyInfo);
 
+    }
+
+    private static void saveProxyFile(String... filePath) {
+        filePath=new String[]{"/Users/yangsaixing/Documents/project/family/target/classes/com/family/pattern/proxy/"};
+        if (filePath.length == 0) {
+            System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+        } else {
+            FileOutputStream out = null;
+            try {
+                byte[] classFile = ProxyGenerator.generateProxyClass("$Proxy0", AgencyServiceImpl.class.getInterfaces());
+                out = new FileOutputStream(filePath[0] + "$Proxy0.class");
+                out.write(classFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.flush();
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

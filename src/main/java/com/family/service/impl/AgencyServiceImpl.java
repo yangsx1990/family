@@ -6,6 +6,7 @@ import com.family.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,15 @@ public class AgencyServiceImpl implements AgencyService{
 
     @Override
     public List<AgencyInfo> queryAgency(AgencyInfo agencyInfo) {
-       return agencyInfoMapper.select(agencyInfo);
+        List<AgencyInfo> agencyInfos=new ArrayList<>();
+        agencyInfo.setAgencyName("test");
+        agencyInfos.add(agencyInfo);
+
+       return agencyInfos;
+    }
+
+    @Override
+    public void test() {
+
     }
 }
