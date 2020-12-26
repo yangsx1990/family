@@ -13,10 +13,16 @@ public class TreeTest {
     public static void main(String[] args) {
 
         TreeNode t1=new TreeNode(1);
-        TreeNode t2=new TreeNode(1);
-        TreeNode t3=new TreeNode(3);
-        t1.right=t2;
-        t2.right=t3;
+        TreeNode t2=new TreeNode(11);
+        TreeNode t6=new TreeNode(121);
+        TreeNode t3=new TreeNode(2);
+        TreeNode t4=new TreeNode(111);
+        TreeNode t5=new TreeNode(21);
+        t1.left=t2;
+        t1.right=t3;
+        t2.left=t4;
+        t2.right=t6;
+        t3.right=t5;
 
 
         TreeNode t11=new TreeNode(1);
@@ -26,6 +32,35 @@ public class TreeTest {
         t13.right=t14;
         //System.out.println(isSameTree(t1,t11));
         System.out.println(isSameTreeV1(t1,t11));
+        printDeep(t1);
+        printWidth(t1);
+    }
+
+    /**
+     * 树遍历-广度优先
+     * @param t1
+     */
+    private static void printWidth(TreeNode t1) {
+        TreeNode p=t1;
+        TreeNode q=null;
+        while(p!=null || q!=null){
+            if(p!=null) System.out.println(p.val);
+            if(q!=null) System.out.println(q.val);
+            q=p.right;
+            p=p.left;
+        }
+    }
+
+    /**
+     * 树遍历-深度优先
+     * @param t1
+     */
+    private static void printDeep(TreeNode t1) {
+        if(t1!=null){
+            System.out.println(t1.val);
+            printWidth(t1.left);
+            printWidth(t1.right);
+        }
     }
 
     /**

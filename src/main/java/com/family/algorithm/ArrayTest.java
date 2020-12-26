@@ -1,4 +1,7 @@
 package com.family.algorithm;
+
+import java.util.*;
+
 /**
  * @description: 双指针 降级
  * @author: yangsaixing
@@ -21,9 +24,142 @@ public class ArrayTest {
         //printArray(plusOne(nums));
         //printArray(plusOneV1(nums));
         //System.out.println(lengthOfLastWord("b   a    "));
-        System.out.println(binaryToTen("1111"));
+       // System.out.println(binaryToTen("1111"));
+        /*int[] numss=new int[]{1,2,3,1};
+        System.out.println(rob(numss));*/
+       /* int[] numss=new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        System.out.println(maxSubArray(numss));*/
+       /*int[] ns=new int[]{1,2,2,2,1};
+        System.out.println(majorityElement(ns));*/
+        /*int[] ns=new int[]{4,5,6,0,0,0};
+        int[] ns1=new int[]{1,2,3};
+        //printArray(twoSum(ns,-1));
+        merge(ns,3,ns1,3);*/
     }
 
+    /*public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result=new ArrayList<>();
+        List<Integer> list1=new ArrayList<>();
+        list1.add(1);
+        result.add(list1);
+        for (int i = 2; i <=numRows ; i++) {
+
+        }
+
+    }*/
+
+    List<Integer> create(int rows,List<Integer> preList){
+        List<Integer> list=new ArrayList<>();
+        list.add(1);
+        for (int i = 0; i <preList.size()+2 ; i++) {
+
+        }
+        return list;
+    }
+
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        if(nums1==null || nums1.length==0) return;
+        if(nums2==null || nums2.length==0) return;
+        int i=m-1;
+        int j=n-1;
+        int pointer=1;
+        while(j>=0 && i>=0){
+            if(nums1[i]<=nums2[j]){
+                nums1[nums1.length-pointer]=nums2[j];
+                j--;
+            }else{
+                nums1[nums1.length-pointer]=nums1[i];
+                i--;
+
+            }
+            pointer++;
+        }
+        System.arraycopy(nums2,0,nums1,0,j+1);
+
+        printArray(nums1);
+
+    }
+
+    public static int[] twoSum(int[] numbers, int target) {
+        if(numbers==null || numbers.length==0) return new int[]{};
+        Map<Integer,Integer> map=new HashMap<>();
+        for (int i = 0; i <numbers.length ; i++) {
+            if(!map.containsKey(numbers[i])) {
+                map.put(target - numbers[i], i+1);
+            }else{
+                return new int[]{map.get(numbers[i]),i+1};
+            }
+
+        }
+        return new int[]{};
+    }
+    public static int maxSubArray1(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        return 0;
+    }
+
+    public static int majorityElement(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        int preValue=nums[0];
+        int preValueNum=1;
+        for (int i = 1; i <nums.length ; i++) {
+            if(preValue==nums[i]){
+                preValueNum++;
+            }else {
+                preValueNum--;
+                if(preValueNum==0){
+                    preValue=nums[i];
+                    preValueNum=1;
+                }
+            }
+        }
+        return preValue;
+    }
+    public static int maxSubArray(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        dp[1]=Math.max(dp[0]+nums[1],dp[0]);
+        dp[1]=Math.max(dp[1],nums[1]);
+        System.out.println("1:"+dp[1]);
+        for (int i = 2; i <nums.length ; i++) {
+            dp[i]=Math.max(dp[i-1]+nums[i],dp[i-1]);
+            for (int j = i-1; j >0; j--) {
+                dp[i]=Math.max(dp[i],dp[i]-nums[j]);
+            }
+            System.out.println(dp[i]);
+        }
+
+        return dp[nums.length-1];
+    }
+
+    /**
+     * 相隔数组最大值
+     * @param nums
+     * @return
+     */
+    public static int rob(int[] nums) {
+        /*int value1=0;
+        int value2=0;
+        for (int i = 0; i <nums.length ; i++) {
+            if(i % 2==0) {
+                value2+=nums[i];
+            }else {
+                value1+=nums[i];
+            }
+        }
+        return value1>value2?value1:value2;*/
+        if(nums==null || nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        dp[1]=Math.max(nums[0],nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            dp[i]=Math.max(dp[i-2]+nums[i],dp[i-1]);
+        }
+        return dp[nums.length-1];
+    }
 
     /**
      * 二进制相加

@@ -17,15 +17,16 @@ public class ListNodeTest {
         System.out.println(result[0]+","+result[1]);*/
 
         ListNode l1=new ListNode(1);
-        ListNode l2=new ListNode(1);
-       ListNode l3=new ListNode(1);
-       /* ListNode l4=new ListNode(3);
-         ListNode l5=new ListNode(3);*/
+        ListNode l2=new ListNode(2);
+       ListNode l3=new ListNode(2);
+        ListNode l4=new ListNode(1);
+        /*  ListNode l5=new ListNode(3);*/
         /*ListNode l6=new ListNode(9);
         ListNode l7=new ListNode(9);*/
 
         l1.next=l2;
         l2.next=l3;
+        l3.next=l4;
        //l3.next=l2;
         /* l4.next=l5;*/
       /*   l5.next=l6;
@@ -51,7 +52,7 @@ public class ListNodeTest {
        /* print(getIntersectionNode(l1,ll1));
         print(getIntersectionNodeV1(l1,ll1));*/
         //System.out.println(hasCycle(l1));
-        print(removeElements(l1,1));
+        print(removeElements(l1,2));
 
     }
     public static ListNode removeElements(ListNode head, int val) {
@@ -60,12 +61,14 @@ public class ListNodeTest {
         while(curr!=null && curr.next!=null){
             if(curr.next.val==val ){
                 curr.next=curr.next.next;
+            }else{
+                curr=curr.next;
             }
-            curr=curr.next;
         }
         ListNode l2=head;
+
         while(l2!=null && l2.val==val){
-            l2= head.next;
+            l2= l2.next;
 
         }
 
