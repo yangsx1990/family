@@ -14,9 +14,103 @@ public class IntegerTest {
         System.out.println(convertToTitle(96));*/
         //System.out.println(convertToTitle1(96));
         //System.out.println(getCount(2,1));
-        System.out.println("-2".indexOf(0,2));
+        //System.out.println("-2".indexOf(0,2));
+       /* System.out.println(0 % 2);
+        System.out.println(isPowerOfTwo(16));*/
+        //System.out.println(addDigits(10));
+
+
+
+        /*System.out.println(3/2);
+        System.out.println(guessNumber(2126753390));*/
+        //System.out.println(firstBadVersion(2126753390));
+        System.out.println(isUgly(22));
+    }
+    public static boolean isUgly(int num) {
+        int number=num % 2;
+        if(number==0){
+            return true;
+        }else{
+            //return isUgly()
+        }
+        return false;
+    }
+    public static int firstBadVersion(int n) {
+        long left=0;
+        long right=n;
+        while(left<=right){
+            int mid=(int)((left+right)/2);
+            System.out.println(mid);
+            if(isBadVersion(mid)){
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return (int)left;
+
     }
 
+    private static boolean isBadVersion(int mid) {
+        if(mid>=1702766719){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public static int guessNumber(int n) {
+        long start=1;
+        long end=n;
+        while(start<=end){
+            long mid=(start+end)/2;
+            System.out.println(mid);
+            int number= guess((int)mid);
+            if(number==0) return (int)mid;
+            if(number==-1){
+                end=mid-1;
+            }else if(number==1){
+                start=mid+1;
+            }
+        }
+        return 0;
+    }
+
+    private static int guess(int n) {
+        int pick=1702766719;
+        if(pick<n){
+            return -1;
+        }else
+        if(pick>n) {
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    public static int getSum(int a, int b) {
+        while(b!=0){
+            int temp= a ^b;
+
+        }
+        return a;
+    }
+    public static int addDigits(int num) {
+        if(num<10) return num;
+        int a=num/10;
+        int b=num %10;
+        return addDigits(a+b);
+    }
+
+    public static boolean isPowerOfTwo(int n) {
+        if(n %2 ==0) {
+            if(n==2)return  true;
+            return isPowerOfTwo(n / 2);
+        }else{
+            return  false;
+        }
+
+    }
     public static int reverse(int x) {
         String s=x+"";
         int[] nums=new int[s.length()];

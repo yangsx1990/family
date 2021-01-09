@@ -1,4 +1,4 @@
-package com.family.algorithm;
+package com.family.algorithm.practice;
 
 import java.util.*;
 
@@ -35,18 +35,248 @@ public class ArrayTest {
         int[] ns1=new int[]{1,2,3};
         //printArray(twoSum(ns,-1));
         merge(ns,3,ns1,3);*/
+        int[] numss=new int[]{8,-19,5,-4,20};
+        //System.out.println(containsDuplicate(numss));
+        //System.out.println(containsNearbyDuplicate(numss,1));
+
+       /* List<String> strings = summaryRanges(numss);
+        System.out.println(strings);*/
+
+        //System.out.println(maxSubArray1(numss));
+       /* List<List<Integer>> generate = generate(3);
+        System.out.println(generate);*/
+        //System.out.println(countAndSayV1(4));
+        //System.out.println(getString("21"));
+        //System.out.println(getRow(3));
+        //System.out.println(isSubsequence("abc","adddbdec"));
+       // System.out.println("1234".substring(1,3));
+        int[] num=new int[]{0,1,2,4};
+        //System.out.println(missingNumber(num));
+        int[] n=new int[num.length];
+        n=num;
+        printArray(n);
     }
 
-    /*public static List<List<Integer>> generate(int numRows) {
+    public static int missingNumber(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        int numsSum=0;
+        int sum=nums.length*(nums.length+1)/2;
+        for (int i = 0; i <nums.length ; i++) {
+            numsSum+=nums[i];
+        }
+        return sum-numsSum;
+    }
+
+
+
+
+    public static boolean isSubsequence(String s, String t) {
+        int start=0;
+        for (int i = 0; i <s.length() ; i++) {
+            String str=s.substring(i,i+1);
+            boolean status=false;
+            if(start>t.length()-1) return false;
+            for (int j = start; j <t.length() ; j++) {
+                if(str.equals(t.substring(j,j+1))){
+                    start=j+1;
+                    status=true;
+                    break;
+                }
+            }
+            if(!status){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    private static String countAndSayV1(int n){
+        if(n<1) return "";
+        if(n==1) return "1";
+        String[] dp=new String[n];
+        dp[0]="1";
+
+        for (int i = 1; i <n ; i++) {
+            dp[i]=getString(dp[i-1]);
+        }
+        return dp[n-1];
+      /*  String temp="1";
+        for (int i = 2; i <=n ; i++) {
+            String result="";
+            String index=temp.substring(0,1);
+            int size=1;
+            for (int j = 1; j <temp.length() ; j++) {
+
+            }
+        }*/
+    }
+    private static String countAndSay(int n){
+        return getString(n-1);
+    }
+    private static String getString(int n) {
+        //if(n=1)
+        return getString(n-1);
+    }
+    private static String getString(String desc) {
+        String result="";
+        int count=0;
+        String temp="";
+        for (int i = 0; i <desc.length() ; i++) {
+            String currStr=desc.substring(i,i+1);
+            if("".equals(temp)){
+                temp=currStr;
+                count=1;
+                continue;
+            }
+            if(temp.equals(currStr)) {
+                count++;
+            }else{
+                result+=(count+temp);
+                temp=currStr;
+                count=1;
+            }
+        }
+        if(count!=0){
+            result+=(count+temp);
+        }
+        System.out.println("before:"+desc+",after:"+result);
+        return result;
+    }
+    public static int maxSubArray2(int[] nums) {
+        int pre=0;
+        int max=nums[0];
+        for(int x:nums){
+            pre=Math.max(pre+x,x);
+            max=Math.max(max,pre);
+        }
+        return max;
+    }
+    public static int maxSubArray1(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        int preSum=nums[0];
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        for (int i = 1; i <nums.length; i++) {
+            if(nums[i]<=0){
+                System.out.println("nums[i]<=0");
+                dp[i]=Math.max(dp[i-1],nums[i]);
+            }else {
+                System.out.println("nums[i]>0");
+                if (preSum < 0) {
+                    System.out.println("preSum <= 0,preSum="+preSum);
+                    //dp[i] = Math.max(preSum+nums[i],nums[i]);
+                    dp[i] =Math.max(dp[i-1],nums[i]);
+                } else {
+                    System.out.println("preSum > 0,preSum="+preSum);
+                    dp[i] = Math.max(preSum + nums[i],dp[i-1]);
+                }
+            }
+            if(dp[i]==nums[i] || preSum<0) preSum=0;
+            preSum+=nums[i];
+            System.out.println("round 1 over，i="+i+",dp="+dp[i]);
+            System.out.println("preSum="+preSum);
+        }
+        return dp[nums.length-1];
+    }
+    public static List<String> summaryRanges(int[] nums) {
+        if(nums==null || nums.length==0) return new ArrayList<>();
+        int start=nums[0];
+        int pre=nums[0];
+        int end=nums[0];
+        List<String> list=new ArrayList<>();
+        int length=1;
+        while(length<=nums.length){
+            if(length==nums.length) {
+                if(start==end){
+                    list.add(start+"");
+                }else {
+                    list.add(start + "->" + end);
+                }
+                return list;
+            }
+            if(pre!=(nums[length]-1)){
+                if(start==end){
+                    list.add(start+"");
+                }else {
+                    list.add(start + "->" + end);
+                }
+                start=nums[length];
+                pre=start;
+                end=start;
+            }else{
+                pre++;
+                end=nums[length];
+            }
+            length++;
+        }
+        return list;
+
+    }
+
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        if(nums==null || nums.length==0) return false;
+        Map<Integer,Integer> map=new HashMap<>();
+        for (int i = 0; i <nums.length ; i++) {
+            if(!map.containsKey(nums[i])){
+                map.put(nums[i],i);
+            }else{
+                int index=map.get(nums[i]);
+                int value=i-index>0?i-index:index-i;
+                if(value<=k ){
+                    return true;
+                }else{
+                    map.put(nums[i],i);
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean containsDuplicate(int[] nums) {
+        if(nums==null || nums.length==0) return false;
+        Set<Integer> sets=new HashSet<>();
+        for (int i = 0; i <nums.length ; i++) {
+            sets.add(nums[i]);
+        }
+        if(sets.size()<nums.length)return  true;
+        return false;
+    }
+
+    public static List<Integer> getRow(int rowIndex) {
+        List<Integer> list=new ArrayList<>();
+        list.add(1);
+        if(rowIndex==0){
+            return list;
+        }
+        List<Integer> rows=getRow(rowIndex-1);
+        for (int i = 0; i <rows.size()-1 ; i++) {
+            list.add(rows.get(i)+rows.get(i+1));
+        }
+        list.add(1);
+        return list;
+    }
+
+    public static List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result=new ArrayList<>();
+        if(numRows==0) return result;
         List<Integer> list1=new ArrayList<>();
         list1.add(1);
         result.add(list1);
-        for (int i = 2; i <=numRows ; i++) {
 
+        for (int i = 1; i <numRows ; i++) {
+            List<Integer> list=result.get(i-1);
+            List<Integer> numbers=new ArrayList<>();
+            numbers.add(1);
+            for (int j = 0; j < list.size()-1; j++) {
+                int number=list.get(j)+list.get(j+1);
+                numbers.add(number);
+            }
+            numbers.add(1);
+            result.add(numbers);
         }
+        return result;
 
-    }*/
+    }
 
     List<Integer> create(int rows,List<Integer> preList){
         List<Integer> list=new ArrayList<>();
@@ -93,10 +323,7 @@ public class ArrayTest {
         }
         return new int[]{};
     }
-    public static int maxSubArray1(int[] nums) {
-        if(nums==null || nums.length==0) return 0;
-        return 0;
-    }
+
 
     public static int majorityElement(int[] nums) {
         if(nums==null || nums.length==0) return 0;
@@ -259,34 +486,7 @@ public class ArrayTest {
         return digits;
     }
 
-    private static String countAndSay(int n){
-            return getString(n-1);
-    }
-    private static String getString(int n) {
-        //if(n=1)
-        return getString(n-1);
-    }
-    private static String getString(String desc) {
-        String result="";
-        int count=0;
-        String temp="";
-        for (int i = 0; i <desc.length() ; i++) {
-            if(temp==""){
-                temp=desc.substring(i,i+1);
-                count=1;
-            }else if(temp.equals(desc.substring(i,i+1))){
-                count++;
-            }else{
-                result+=(count+temp);
-                count=0;
-            }
-        }
-        if(count!=0){
-            result+=(count+temp);
-        }
-        System.out.println("before:"+desc+",after:"+result);
-        return result;
-    }
+
 
     private static int searchInsertV1(int[] nums,int target){
          int length=nums.length;

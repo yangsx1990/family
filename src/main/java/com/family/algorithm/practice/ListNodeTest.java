@@ -16,17 +16,18 @@ public class ListNodeTest {
         int result[]=sum(nums,target);
         System.out.println(result[0]+","+result[1]);*/
 
-        ListNode l1=new ListNode(1);
-        ListNode l2=new ListNode(2);
-       ListNode l3=new ListNode(2);
-        ListNode l4=new ListNode(1);
-        /*  ListNode l5=new ListNode(3);*/
-        /*ListNode l6=new ListNode(9);
+        ListNode l1=new ListNode(-16557);
+        ListNode l2=new ListNode(-8725);
+       ListNode l3=new ListNode(-8725);
+        ListNode l4=new ListNode(-16557);
+        ListNode l5=new ListNode(1);
+        /*  /*ListNode l6=new ListNode(9);
         ListNode l7=new ListNode(9);*/
 
         l1.next=l2;
         l2.next=l3;
         l3.next=l4;
+        //l4.next=l5;
        //l3.next=l2;
         /* l4.next=l5;*/
       /*   l5.next=l6;
@@ -52,7 +53,83 @@ public class ListNodeTest {
        /* print(getIntersectionNode(l1,ll1));
         print(getIntersectionNodeV1(l1,ll1));*/
         //System.out.println(hasCycle(l1));
-        print(removeElements(l1,2));
+        //print(removeElements(l1,2));
+        System.out.println(isPalindrome(l1));
+    }
+
+    /*public static ListNode reverseList(ListNode head) {
+        if(head==null) return null;
+        int
+    }*/
+    public static boolean isPalindrome(ListNode head) {
+        if(head==null) return true;
+        if(head.next==null) return true;
+        int mid=0;
+        String s1="";
+        String s2="";
+        ListNode p=head;
+        while (p!=null ){
+           if(p.next==null){
+               s2+=p.val+",";
+               break;
+           }
+           if(p.next.next==null) {
+               if(s1.equals("") && p.val==p.next.val){
+                   return true;
+               }
+               s2+=p.val+",";
+               s2+=p.next.val+",";
+               break;
+           }
+           if(mid==1){
+               s2+=p.val+",";
+               p=p.next;
+           }else
+           if( p.val==p.next.next.val ){
+               mid=1;
+               s1+=(p.val+",");
+               p=p.next.next;
+           }else if( p.val==p.next.val) {
+               mid=1;
+               s1+=(p.val+",");
+               p=p.next;
+           }else {
+               s1+=(p.val+",");
+               p=p.next;
+           }
+
+
+        }
+        System.out.println(s1);
+        System.out.println(s2);
+
+        String s11="";
+        int endIndex=0;
+        int startIndex=0;
+        for (int i = s1.length()-1; i >=0 ; i--) {
+            String ss=s1.substring(i,i+1);
+            if(",".equals(ss)){
+                if(endIndex==0){
+                    endIndex=i;
+                }else{
+                    startIndex=i;
+                    s11+=s1.substring(startIndex+1,endIndex);
+                    endIndex=i;
+                    startIndex=0;
+                    s11+=",";
+                }
+
+
+            }
+
+        }
+        if(endIndex!=0){
+            s11+=s1.substring(0,endIndex)+",";
+        }
+        System.out.println("s:"+s11);
+        if(s11.equals(s2)) return true;
+
+        return false;
 
     }
     public static ListNode removeElements(ListNode head, int val) {

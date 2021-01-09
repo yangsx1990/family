@@ -1,5 +1,10 @@
 package com.family.algorithm.practice;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * @description:
  * @author: yangsaixing
@@ -22,15 +27,99 @@ public class StringTest {
        /*int[] nums=new int[]{1,3,4,1,4};
         System.out.println( singleNumber(nums) );*/
 
-        String str="A man, a plan, a canal: Panama";
+       /* String str="A man, a plan, a canal: Panama";
         str="Marge, let's \"[went].\" I await {news} telegram.";
-        System.out.println(isPalindrome(str));
+        System.out.println(isPalindrome(str));*/
         /*for (int i=0;i<str.length();i++){
             System.out.println(str.substring(i,i+1));
 
         }*/
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("a","a");
+
+
+        Map<String,String> map1=new HashMap<>();
+        map1.put("aaa","aaa");
+        map.put("a",map1);
+
+        Map map2=(Map)map.get("a");
+       /* System.out.println(map2);
+        System.out.println(map);*/
+        //System.out.println(firstUniqChar(""));
+       /* System.out.println("abc".charAt(0));
+        System.out.println("a b c".indexOf("c"));
+        int[] a=new int[]{4,5,6,7,0,2,1,3};
+        System.out.println(restoreString("codeleet",a));*/
+        //System.out.println(reverse(789));
+        System.out.println(reverse(-789));
+        System.out.println(reverse(-7890));
     }
 
+    public static int reverse(int x) {
+        String s=x+"";
+        String result="";
+        for (int i = s.length()-1; i >=0 ; i--) {
+            if(i==s.length()-1 && "0".equals(s.charAt(i))) break;
+            if ("-".equals(s.charAt(i))) {
+                result+="-";
+            }else{
+                result+=s.charAt(i)+"";
+            }
+        }
+        int value=0;
+        try{
+            value=Integer.valueOf(result);
+        }catch (Exception e){
+            return 0;
+        }
+        return  value;
+    }
+    public static  String restoreString(String s, int[] indices) {
+        char[] num=new char[indices.length];
+        for (int i = 0; i <indices.length ; i++) {
+            num[indices[i]]=s.charAt(i);
+        }
+
+        return new String(num);
+    }
+    public static boolean wordPattern(String pattern, String s) {
+        char[] chars=s.toCharArray();
+        switch (pattern){
+            case "aaaa":
+                char temp=chars[0];
+                for (char c:chars){
+                    if(c!=temp){
+                        return false;
+                    }
+                }
+                break;
+            case "abba":
+                break;
+
+        }
+        return false;
+    }
+    public static int firstUniqChar(String s) {
+        if(s==null || s=="") return -1;
+        Map<String,Integer> map1=new LinkedHashMap<>();
+        Map<String,Integer> map2=new LinkedHashMap<>();
+        for (int i = 0; i <s.length() ; i++) {
+            String str=s.substring(i,i+1);
+            if(map1.containsKey(str) && map2.containsKey(str)){
+                map2.put(str,map2.get(str)+1);
+            }else {
+                map1.put(str,i);
+                map2.put(str,1);
+            }
+        }
+        for (String key:map2.keySet()){
+            if(map2.get(key)!=null && 1==map2.get(key)){
+                return map1.get(key);
+            }
+        }
+        return 0;
+    }
     public static boolean isPalindrome(String s) {
 
         String firstStr="";
