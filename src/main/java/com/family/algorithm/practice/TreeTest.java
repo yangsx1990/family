@@ -94,9 +94,57 @@ public class TreeTest {
         c2.left=c4;
         c1.right=c3;
         c2.right=c5;
-        System.out.println(levelOrder(b1));
+        //System.out.println(levelOrder(b1));
+        //System.out.println(levelOrderBottom(b1));
+       // System.out.println(maxDepthV3(b1));
+        TreeNode d1=new TreeNode(5);
+        TreeNode d2=new TreeNode(4);
+        TreeNode d3=new TreeNode(8);
+        TreeNode d4=new TreeNode(11);
+        TreeNode d5=new TreeNode(13);
+        TreeNode d6=new TreeNode(4);
+        TreeNode d7=new TreeNode(7);
+        TreeNode d8=new TreeNode(2);
+        TreeNode d9=new TreeNode(1);
+        d1.left=d2;
+        d1.right=d3;
+        d2.left=d4;
+        d4.left=d7;
+        d4.right=d8;
+        d3.left=d5;
+        d3.right=d6;
+        d6.right=d9;
+        System.out.println(hasPathSum(d1,10));
     }
 
+    public static boolean hasPathSum(TreeNode root, int sum) {
+        if(root==null){
+            return false;
+        }
+        if(root.left==null && root.right==null){
+            return sum==root.val;
+        }
+        return hasPathSum(root.left,sum-root.val) || hasPathSum(root.right,sum-root.val);
+    }
+
+    private static int getPath(TreeNode root,int sum) {
+        if(root==null){
+            return 0;
+        }else{
+            System.out.println(root.val);
+        }
+         int v1=getPath(root.left,sum)+1;
+         int v2=getPath(root.right,sum)+1;
+         return v1+v2;
+    }
+
+    public static int maxDepthV3(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+
+        return Math.max(maxDepthV3(root.left)+1,maxDepthV3(root.right)+1);
+    }
     public static int[] levelOrderV1(TreeNode root) {
 
         Queue<TreeNode> queue=new LinkedList<>();
@@ -242,31 +290,25 @@ public class TreeTest {
         }
     }
 
-    /* public static List<List<Integer>> levelOrderBottom(TreeNode root) {
-         Stack<TreeNode> stack=new Stack<>();
-         TreeNode p=root;
-         Boolean status=false;
+     public static List<List<Integer>> levelOrderBottom(TreeNode root) {
+         Queue<TreeNode> queue=new LinkedList<>();
+         List<List<Integer>> list=new ArrayList<>();
+         if(root==null) return list;
+         queue.add(root);
+         while(!queue.isEmpty()){
 
-         while(p.left!=null || p.right!=null){
-             TreeNode temp=stack.pop();
-
-             if(temp!=null && temp==p.right){
-
+             List<Integer> tempList=new ArrayList<>();
+             for (int i = queue.size(); i >0 ; i--) {
+                 TreeNode treeNode=queue.poll();
+                 tempList.add(treeNode.val);
+                 if(treeNode.left!=null) queue.add(treeNode.left);
+                 if(treeNode.right!=null) queue.add(treeNode.right);
              }
-             if(temp==null) {
-                 stack.push(p);
-             }
-             if(p.left!=null) stack.push(p.left);
-             if(p.right!=null) stack.push(p.right);
+             list.add(0,tempList);
 
-             if(p.left!=null){
-                 p=p.left;
-             }else {
-                 p=p.right;
-             }
          }
-
-     }*/
+         return list;
+     }
     public static boolean isSymmetric(TreeNode root) {
         TreeNode left=root;
         TreeNode right=root;
@@ -466,4 +508,5 @@ public class TreeTest {
             this.right=right;
         }
     }
+
 }

@@ -1,9 +1,6 @@
 package com.family.algorithm.practice;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @description:
@@ -52,10 +49,95 @@ public class StringTest {
         int[] a=new int[]{4,5,6,7,0,2,1,3};
         System.out.println(restoreString("codeleet",a));*/
         //System.out.println(reverse(789));
-        System.out.println(reverse(-789));
-        System.out.println(reverse(-7890));
+        /*System.out.println(reverse(-789));
+        System.out.println(reverse(-7890));*/
+       // System.out.println(backspaceCompare("xywrrmp", "xywrrm#p"));
+        //System.out.println(sortString("aaaabbbbcccc"));
+        System.out.println(longestValidParentheses("(()"));
     }
 
+    public static  int longestValidParentheses(String s) {
+        if(s==null || s.length()==0) return 0;
+        int left=0;
+        StringBuffer sb=new StringBuffer();
+        for (int i = 0; i <s.length() ; i++) {
+            String tempStr=s.charAt(i)+"";
+            if("(".equals(tempStr)){
+                left=1;
+            }else if(")".equals(tempStr)){
+                if(left==1){
+                    sb.append("()");
+                    left=0;
+                }
+            }
+        }
+        return sb.length();
+
+    }
+    public static String sortString(String s) {
+        int[] nums=new int[26];
+        for (int i = 0; i <s.length() ; i++) {
+            nums[s.charAt(i)-'a']++;
+        }
+        StringBuffer ret=new StringBuffer();
+        while(ret.length()<s.length()){
+            for (int i = 0; i <26 ; i++) {
+                if(nums[i]>0){
+                    ret.append((char)(i+'a'));
+                    nums[i]--;
+                }
+            }
+
+            for (int i = 25; i >=0 ; i--) {
+                if(nums[i]>0){
+                    ret.append((char)(i+'a'));
+                    nums[i]--;
+                }
+            }
+        }
+        return ret.toString();
+    }
+
+
+    public static boolean backspaceCompare(String S, String T) {
+        int a=0;
+        int b=0;
+        List<String> list1=new ArrayList<>();
+        List<String> list2=new ArrayList<>();
+        while(a<S.length() || b<T.length()){
+            if(a<S.length()){
+                if("#".equals(S.charAt(a)+"")){
+                    if (list1.size() >= 1) {
+                        list1.remove(list1.size()-1);
+                    }
+                }else{
+                    list1.add(S.charAt(a)+"");
+                }
+                a++;
+            }
+            if(b<T.length()){
+                if("#".equals(T.charAt(b)+"")){
+                    if(list2.size()>=1) {
+                        list2.remove(list2.size() - 1);
+                    }
+
+                }else{
+                    list2.add(T.charAt(b)+"");
+                }
+                b++;
+            }
+
+        }
+        System.out.println(list1);
+        System.out.println(list2);
+        if(list1.size()!= list2.size()) return false;
+        for (int i = 0; i < list1.size(); i++) {
+            if(!list1.get(i).equals(list2.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
     public static int reverse(int x) {
         String s=x+"";
         String result="";

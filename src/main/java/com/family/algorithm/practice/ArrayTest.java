@@ -54,9 +54,446 @@ public class ArrayTest {
         //System.out.println(missingNumber(num));
         int[] n=new int[num.length];
         n=num;
-        printArray(n);
+        //printArray(n);
+
+
+        //System.out.println(transpose(a));
+
+        int[] s=new int[]{-1,-2,-3,-4};
+        int[] t=new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+        //System.out.println(largestPerimeterV1(s));
+        /*char[] chars=new char[]{'a','b'};
+        reverseString(chars);*/
+        //printArray(merge1(s,3,t,3));
+        //System.out.println(maxProfit(s));
+        //System.out.println(climbStairs(6));
+        //System.out.println(minCostClimbingStairs1(t));
+        //System.out.println(maximumProduct(s));
+        int[][] a=new int[][]{{5,10},{2,5},{4,7},{3,9}};
+        //System.out.println(maximumUnits(a,10));
+        int[] a1=new int[]{4,2,5,7};
+        //printArray(sortArrayByParityII(a1));
+
+        int[] temp=new int[]{4};
+        /*for (int i=0;i<temp.length;i++){
+            temp[i]=temp[i]*10000-temp[i]+10000;
+            System.out.println(temp[i]);
+        }
+
+        for (int i = 0; i <temp.length ; i++) {
+            System.out.println(10000-temp[i]%10000);
+        }*/
+        //printArray(sortByBits(temp));
+        //printArray(sortByBits1(temp));
+       /* List<Integer> list=new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        int[] l1=new  int[4];
+        l1[0]=3;
+        l1[1]=1;
+        l1[2]=5;
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if(l1[o1]<l1[o2]){
+                    return -1;
+                }else if(l1[o1]>l1[o2]){
+                    return 1;
+                }else {
+                    return 0;
+                }
+            }
+        });
+        System.out.println(list);*/
+        //System.out.println(minSubsequence(temp));
+        //allCellsDistOrder(80,57,19,38);
+        int[] nn=new int[]{4,2};
+       // System.out.println(majorityElement1(nn));
+        //printArray(searchRange(nn,8));
+        //printArray(sortedSquares(nn));
+        //System.out.println(sumOddLengthSubarrays(nn));
     }
 
+
+
+    public static int[] sortedSquares(int[] nums) {
+        for (int i = 0; i <nums.length ; i++) {
+            nums[i]=nums[i]*nums[i];
+        }
+        Arrays.sort(nums);
+        return nums;
+    }
+    public static int[] searchRange(int[] nums, int target) {
+        int mid=(nums.length-1)/2;
+        int n1=0;
+        int n2=0;
+        if(nums[mid]>target){
+            n1=binarySearch(nums,0,mid,target,true);
+            n2=binarySearch(nums,0,mid,target,false);
+        }else if(nums[mid]<=target){
+            n1=binarySearch(nums,mid,nums.length-1,target,true);
+            n2=binarySearch(nums,mid,nums.length-1,target,false);
+
+        }
+        if(n1==n2-1){
+            return new int[]{-1,-1};
+        }
+        return Arrays.copyOfRange(nums,n1,n2);
+    }
+    private static int binarySearch(int[] nums,int left,int right,int target,boolean isBigger){
+        while(left<right-1){
+            int mid=(left+right)/2;
+            if(nums[mid]>target){
+                right=mid-1;
+            }else if(nums[mid]>target){
+                left=mid+1;
+            }
+        }
+
+        if(left==right-1){
+            if(isBigger){
+                if(nums[right]>target){
+                    return right;
+                }
+            }else{
+                if(nums[right]>=target){
+                    return left;
+                }
+            }
+        }
+        return 0;
+
+    }
+   /* public static int majorityElement1(int[] nums) {
+
+    }*/
+    public static int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
+        int[][] result=new int[101*101][2];
+        int index=0;
+        Map<String,List> map=new HashMap<>();
+        for (int i = 0; i <R ; i++) {
+            for (int j = 0; j <C ; j++) {
+                int sum=Math.abs(i-r0)+Math.abs(j-c0);
+                result[index]=new int[]{i,j};
+                if(map.containsKey(sum+"")){
+                    List<Integer> list2=map.get(sum+"");
+                    list2.add(index);
+                    map.put(sum+"",list2);
+                }else {
+                    List<Integer> list1=new ArrayList<>();
+                    list1.add(index);
+                    map.put(sum+"",list1);
+                }
+                index++;
+            }
+        }
+        result=Arrays.copyOf(result,index);
+        int rIndex=0;
+        int[][] r=new int[result.length][2];
+        for (int i = 0; i <R+C ; i++) {
+            if(map.containsKey(i+"")){
+                List<Integer> list=map.get(i+"");
+                for(Integer l:list){
+                    r[rIndex]=result[l];
+                    rIndex++;
+                }
+            }
+
+        }
+
+        return r;
+    }
+    public static List<Integer> minSubsequence(int[] nums) {
+        Arrays.sort(nums);
+        int sum=0;
+        for (int i = 0; i <nums.length ; i++) {
+            sum+=nums[i];
+        }
+        int temp=0;
+        List<Integer> list=new ArrayList<>();
+        for (int i = nums.length-1; i >=0; i--) {
+            if(temp+nums[i]<=sum-nums[i]-temp){
+                list.add(nums[i]);
+                temp+=nums[i];
+            }else {
+                list.add(nums[i]);
+                return list;
+            }
+        }
+        return null;
+    }
+    public static int[] sortByBits1(int[] arr) {
+        int[] bit=new int[10001];
+        List<Integer> list=new ArrayList<>();
+        for (int x:arr){
+            list.add(x);
+            bit[x]=getBinary(x);
+        }
+
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer x, Integer y) {
+                if(bit[x]!=bit[y]){
+                    return bit[x]-bit[y];
+                }else {
+                    return x-y;
+                }
+            }
+        });
+
+        for (int i = 0; i <arr.length ; i++) {
+            arr[i]=list.get(i);
+        }
+        return arr;
+
+    }
+
+
+
+    /*public static int[] sortByBits1(int[] arr) {
+        int max=Integer.MIN_VALUE;
+        for (int a:arr){
+            max=Math.max(max,a);
+        }
+        int[] nums=new int[max+1];
+        for (int i = 0; i < arr.length; i++) {
+            nums[i]=getBinary(arr[i]);
+            if(arr[i]==0){
+                nums[i]=-1;
+            }
+        }
+        Arrays.sort(nums);
+        int[] result=new int[arr.length];
+        int index=0;
+        for (int i = 0; i <nums.length ; i++) {
+            if(nums[i]!=0){
+                result[index]=
+            }
+        }
+    }*/
+    static int getBinary(int x){
+        int res = 0;
+        while (x != 0) {
+            res += x % 2;
+            x /= 2;
+        }
+        return res;
+    }
+    public static int[] sortByBits(int[] arr) {
+        int max=Integer.MIN_VALUE;
+        for (int a:arr){
+            max=Math.max(max,a);
+        }
+        int[] nums=new int[max+1];
+        int numsMax=Integer.MIN_VALUE;
+        for (int i = 0; i <arr.length ; i++) {
+            int number=getBinary(arr[i]);
+            nums[i]=number;
+            numsMax=Math.max(numsMax,nums[i]);
+        }
+        for (int i = 0; i <nums.length ; i++) {
+            nums[i]=nums[i]*10000-nums[i]+10000;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i <nums.length ; i++) {
+            nums[i]=10000-nums[i]%10000;
+        }
+        return nums;
+    }
+    public static int[] sortArrayByParityII(int[] A) {
+        int a1=0;
+        int a2=0;
+        int[] a=new int[A.length/2];
+        int[] b=new int[A.length/2];
+        for(int i=0;i<A.length;i++){
+            if(A[i] %2==0) {
+                b[a2]=A[i];
+                a2++;
+            }else {
+                a[a1]=A[i];
+                a1++;
+            }
+        }
+        int i1=0;
+        int i2=0;
+        int index=0;
+        int[] array=new int[A.length];
+        while(index<A.length){
+            if(index %2==0){
+                //双数
+                array[index]=b[i2];
+                i2++;
+            }else{
+                //单数
+                array[index]=a[i1];
+                i1++;
+            }
+            index++;
+
+        }
+        return array;
+    }
+
+    /*public static boolean canFormArray(int[] arr, int[][] pieces) {
+        Map<String,Object> map1=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
+        for (int i=0;i<arr.length;i++){
+            map1.put(i+"",arr[i]);
+        }
+        for (int i = 0; i < pieces.length; i++) {
+            int[] temp=pieces[i];
+            map.put(i+"",temp);
+        }
+
+        for (int i = 0; i <map.size() ; i++) {
+            int[] temp= (int[]) map.get(i+"");
+
+        }
+    }*/
+
+    public static int maximumUnits(int[][] boxTypes, int truckSize) {
+        int sum=0;
+        Arrays.sort(boxTypes,(o1,o2)->(o2[1]-o1[1]));
+        for (int i = 0; i <boxTypes.length && truckSize>0 ; i++) {
+            int num=Math.min(truckSize,boxTypes[i][0]);
+            truckSize=truckSize-num;
+            sum+=num*boxTypes[i][1];
+        }
+        return sum;
+    }
+    public static int maximumProduct(int[] nums) {
+        List<Integer> a=new ArrayList<>();
+        List<Integer> b=new ArrayList<>();
+        for (int n:nums){
+            if(n>=0){
+                a.add(n);
+            }else {
+               b.add(n);
+            }
+        }
+        Collections.sort(a);
+        Collections.sort(b);
+        if(b.size()==0){
+            return a.get(a.size()-1)*a.get(a.size()-2)*a.get(a.size()-3);
+        }else if(b.size()==1){
+            if(a.size()<3){
+                return a.get(0)*a.get(1)*b.get(0);
+            }else{
+                return a.get(a.size()-1)*a.get(a.size()-2)*a.get(a.size()-3);
+            }
+        }else if(b.size()>=2){
+            if(a.size()==0){
+                return b.get(b.size()-1)*b.get(b.size()-3)*b.get(b.size()-2);
+            }else  if(a.size()==1){
+                return a.get(0)*b.get(0)*b.get(1);
+            }else if(a.size()==2){
+                return a.get(a.size()-1)*b.get(0)*b.get(1);
+            }else{
+                return Math.max(a.get(a.size()-1)*a.get(a.size()-2)*a.get(a.size()-3),b.get(1)*b.get(0)*a.get(a.size()-1));
+            }
+        }
+        return 0;
+
+
+    }
+    public static int minCostClimbingStairs1(int[] cost) {
+        int n=cost.length;
+        int pre=0;
+        int curr=0;
+        for (int i = 2; i <=n ; i++) {
+            int next=Math.min(curr+cost[i-1],pre+cost[i-2]);
+            pre=curr;
+            curr=next;
+            System.out.println("i="+i);
+            System.out.println(next);
+        }
+        return curr;
+    }
+    public static int minCostClimbingStairs(int[] cost) {
+        if(cost==null || cost.length<2) return 0;
+        int[] dp=new int[cost.length];
+        dp[0]=Math.min(cost[0],cost[1]);
+
+        dp[1]=dp[0];
+        int step=0;
+        if(cost[0]>cost[1]){
+            step=1;
+            dp[2]=cost[1]+cost[2];
+        }else {
+            step=2;
+            dp[2]=cost[0]+cost[2];
+        }
+        for (int i = 3; i <cost.length ; i++) {
+            if(dp[i-1]+cost[i]<dp[i-2]+cost[i]){
+                dp[i]=dp[i-1]+cost[i];
+                step=1;
+            }else{
+                dp[i]=dp[i-2]+cost[i];
+                step=2;
+            }
+
+
+            System.out.println("step:"+step);
+            System.out.println("i="+i+","+dp[i]);
+
+        }
+        return dp[cost.length-1];
+    }
+    public static int climbStairs(int n) {
+        if(n<1) return 0;
+        int[] dp=new int[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        for (int i = 2; i <=n; i++) {
+            dp[i]=dp[i-1]+dp[i-2];
+            System.out.println("i="+i+",dp:"+dp[i]);
+        }
+        return dp[n];
+    }
+
+    public static int maxProfit(int[] prices) {
+        if(prices==null || prices.length<2) return 0;
+        int[] dp=new int[prices.length];
+        int min=prices[0];
+        dp[0]=0;
+        dp[1]=Math.max(prices[1]-min,dp[0]);
+        min=Math.min(min,prices[1]);
+        for (int i = 2; i <prices.length ; i++) {
+            dp[i]=Math.max(prices[i]-min,dp[i-1]);
+            min=Math.min(min,prices[i]);
+        }
+        return dp[prices.length-1];
+    }
+    public static int largestPerimeterV1(int[] A) {
+        Arrays.sort(A);
+        for (int i = A.length-1; i >=2 ; i--) {
+            if(A[i]<A[i-1]+A[i-2]){
+                return A[i-1]+A[i-2]+A[i];
+            }
+        }
+        return 0;
+    }
+    public static int[] merge1(int[] A, int m, int[] B, int n) {
+
+        int length=m+n;
+        while(m>0 && n>0){
+            if(A[m-1]>B[n-1]){
+                A[length-1]=A[m-1];
+                m--;
+            }else{
+                A[length-1]=B[n-1];
+                n--;
+            }
+            length--;
+        }
+        if(m==0 && n>0){
+            for(int i=0;i<n;i++){
+                A[i]=B[i];
+            }
+        }
+        return A;
+    }
     public static int missingNumber(int[] nums) {
         if(nums==null || nums.length==0) return 0;
         int numsSum=0;
@@ -67,7 +504,18 @@ public class ArrayTest {
         return sum-numsSum;
     }
 
-
+    public static void reverseString(char[] s) {
+        if(s==null || s.length==0) return;
+        for (int i = 0; i <=s.length/2 ; i++) {
+            if(i<s.length-1-i){
+                char temp=s[s.length-1-i];
+                s[s.length-1-i]=s[i];
+                s[i]=temp;
+                System.out.println(s[i]);
+            }
+        }
+        return;
+    }
 
 
     public static boolean isSubsequence(String s, String t) {

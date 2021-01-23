@@ -33,13 +33,7 @@ public class ListNodeTest {
       /*   l5.next=l6;
         l6.next=l7;*/
 
-        ListNode ll1=new ListNode(5);
-        //ll1.next=l5;
-        ListNode ll2=new ListNode(6);
-        ListNode ll3=new ListNode(1);
-        ll1.next=ll2;
-        ll2.next=ll3;
-        ll3.next=l3;
+
 
         /*
         ListNode ll4=new ListNode(8);
@@ -54,9 +48,66 @@ public class ListNodeTest {
         print(getIntersectionNodeV1(l1,ll1));*/
         //System.out.println(hasCycle(l1));
         //print(removeElements(l1,2));
-        System.out.println(isPalindrome(l1));
+        //System.out.println(isPalindrome(l1));
+
+        ListNode ll1=new ListNode(1);
+        ListNode ll2=new ListNode(2);
+        ListNode ll3=new ListNode(4);
+        ll1.next=ll2;
+        ll2.next=ll3;
+        ListNode t1=new ListNode(1);
+        ListNode t2=new ListNode(3);
+        ListNode t3=new ListNode(4);
+        t1.next=t2;
+        t2.next=t3;
+        //print(mergeTwoLists(ll1,t1));
+        print(removeNthFromEnd(ll1,2));
     }
 
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode l=head;
+        Stack<ListNode> stack=new Stack();
+        while(l!=null){
+            stack.push(l);
+            l=l.next;
+        }
+        ListNode temp=null;
+        while(n>=0 && !stack.isEmpty()){
+            if(n==0){
+                temp=stack.pop();
+                break;
+            }
+            stack.pop();
+            n--;
+
+        }
+        if(temp!=null){
+            temp.next=temp.next.next;
+            return head;
+        }
+        return head.next;
+
+
+    }
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode result=new ListNode(0);
+        ListNode temp=result;
+        while(l1!=null && l2!=null){
+            if(l1.val<l2.val){
+                temp.next=l1;
+                l1=l1.next;
+            }else{
+                temp.next=l2;
+                l2=l2.next;
+            }
+
+            temp=temp.next;
+        }
+        temp.next=l1==null?l2:l1;
+        return result.next;
+
+
+    }
     /*public static ListNode reverseList(ListNode head) {
         if(head==null) return null;
         int

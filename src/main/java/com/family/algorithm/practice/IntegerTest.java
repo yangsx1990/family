@@ -1,5 +1,7 @@
 package com.family.algorithm.practice;
 
+import java.util.Arrays;
+
 /**
  * @description:
  * @author: yangsaixing
@@ -24,7 +26,112 @@ public class IntegerTest {
         /*System.out.println(3/2);
         System.out.println(guessNumber(2126753390));*/
         //System.out.println(firstBadVersion(2126753390));
-        System.out.println(isUgly(22));
+        //System.out.println(isUgly(22));
+        //System.out.println(massage(new int[]{2,1,4,5,3,1,1,3}));
+        //System.out.println(largestPerimeter(new int[]{3,2,1}));
+
+        int[][] result=new int[2][2];
+        result[0]=new int[]{1,2,3};
+        result[1]=new int[]{4,5,6};
+        //result[2]=new int[]{7,8,9};
+        System.out.println(transpose(result).length);
+    }
+
+    public  static int[][] transpose(int[][] A) {
+        int[][] result=new int[A[0].length][A.length];
+        int index=0;
+        for (int i = 0; i <A[0].length ; i++) {
+            int[] temp=new int[A.length];
+            int a=0;
+            for (int j = 0; j <A.length ; j++) {
+                temp[a]=A[j][i];
+                a++;
+            }
+            result[index]=temp;
+            index++;
+        }
+
+        return result;
+    }
+    /*public static int divide(int dividend, int divisor) {
+        int left=0;
+        int right=dividend;
+        while(left<=right){
+            long mid=(left+right)/2;
+            if()
+        }
+    }*/
+
+    public static int largestPerimeter(int[] A) {
+        if(A==null || A.length<3) return 0;
+        int p1=0;
+        int p2=1;
+        int p3=2;
+        int max=0;
+        while(p3<A.length){
+            if(isTrue(A[p1],A[p2],A[p3])){
+                max=Math.max(max,A[p1]+A[p2]+A[p3]);
+            }
+            if(p3<A.length-1){
+                p3++;
+            }else if(p2<A.length-2){
+                p2++;
+                p3=p2+1;
+            }else if(p1<A.length-3){
+                p1++;
+                p2=p1+1;
+                p3=p2+1;
+            }else {
+                return max;
+            }
+        }
+        return max;
+
+    }
+    static boolean isTrue(int a,int b,int c){
+        if(a+b>c && a+c>b && b+c>a){
+            return true;
+        }
+        return false;
+    }
+    public static  int massage(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        dp[1]=Math.max(dp[0],nums[1]);
+        boolean status=false;
+        int sum=0;
+        if(dp[0]<nums[1]){
+            status=true;
+            sum=dp[0];
+        }
+        for (int i = 2; i <nums.length ; i++) {
+            if(status){
+                //包含前一个值
+                if(dp[i-1]<sum+nums[i]){
+                    dp[i]=sum+nums[i];
+                    status=true;
+                    sum=dp[i-1];
+                }else{
+                    dp[i]=dp[i-1];
+                    sum=sum+nums[i];
+                    status=false;
+                }
+            }else{
+                //未包含前一个值
+                if(sum<dp[i-1]+nums[i]){
+                    dp[i]=dp[i-1]+nums[i];
+                    status=true;
+                }else {
+                    status=false;
+                    dp[i]=sum;
+                    sum=dp[i-1]+nums[i];
+                }
+
+            }
+
+        }
+        return dp[nums.length-1];
     }
     public static boolean isUgly(int num) {
         int number=num % 2;
