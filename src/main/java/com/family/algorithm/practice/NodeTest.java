@@ -29,6 +29,7 @@ public class NodeTest {
         System.out.println(preorder(n1));
     }
 
+
     public static List<Integer> preorder(Node root) {
         List<Integer> list=new ArrayList<>();
          forEach(root,list);

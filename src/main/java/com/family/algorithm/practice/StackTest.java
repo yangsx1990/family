@@ -13,7 +13,70 @@ public class StackTest {
 
        /* String[] s=new String[]{"1"};
         System.out.println(calPoints(s));*/
-        System.out.println(longestValidParentheses(")()())()()("));
+        //System.out.println(longestValidParentheses(")()())()()("));
+        //System.out.println(removeDuplicates("cbccbc"));
+        //System.out.println(removeOuterParentheses("()()"));
+        System.out.println(test(")(())"));
+        int a=2;
+        a^=2;
+        System.out.println(a);
+        a^=3;
+        System.out.println(a);
+    }
+
+    public static String test(String S) {
+        StringBuilder sb = new StringBuilder();
+        int level = 0;
+        for (char c : S.toCharArray()) {
+            if (c == ')') --level;
+            if (level >= 1) sb.append(c);
+            if (c == '(') ++level;
+        }
+        return sb.toString();
+    }
+
+
+    public static String removeOuterParentheses(String S) {
+        String result="";
+        Stack<String> stack=new Stack<>();
+        Integer index=0;
+        Integer start=0;
+        for (int i = 0; i <S.length() ; i++) {
+            String s=S.charAt(i)+"";
+            if("(".equals(s)){
+                index++;
+            }else{
+                index--;
+            }
+            stack.push(s);
+            if(index==0){
+                result+=S.substring(start+1,i);
+                start=i+1;
+            }
+        }
+        return result;
+
+    }
+
+    public static String removeDuplicates(String S) {
+        Stack<String> stack=new Stack<>();
+        for (int i = S.length()-1; i >=0 ; i--) {
+            String temp=S.charAt(i)+"";
+            if(stack.isEmpty()){
+                stack.push(temp);
+            }else{
+                if(temp.equals(stack.peek())){
+                    stack.pop();
+                }else {
+                    stack.push(temp);
+                }
+            }
+        }
+        String result="";
+        while(!stack.isEmpty()){
+            result+=stack.pop();
+        }
+        return result;
     }
 
     public static  int longestValidParentheses(String s) {

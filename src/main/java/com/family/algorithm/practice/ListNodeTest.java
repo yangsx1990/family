@@ -56,12 +56,47 @@ public class ListNodeTest {
         ll1.next=ll2;
         ll2.next=ll3;
         ListNode t1=new ListNode(1);
-        ListNode t2=new ListNode(3);
-        ListNode t3=new ListNode(4);
-        t1.next=t2;
-        t2.next=t3;
+        ListNode t2=new ListNode(2);
+        ListNode t3=new ListNode(3);
+        ListNode t4=new ListNode(4);
+        //t1.next=t2;
+       /* t2.next=t3;
+        t3.next=t4;*/
         //print(mergeTwoLists(ll1,t1));
-        print(removeNthFromEnd(ll1,2));
+        //print(removeNthFromEnd(ll1,2));
+        print(swapPairs(t1));
+    }
+
+    public static ListNode swapPairs(ListNode head) {
+        if(head==null || head.next==null) return head;
+        ListNode p1=new ListNode(0);
+        p1.next=head;
+        ListNode p=p1;
+        ListNode temp;
+        while(p!=null){
+            if(p.next==null || p.next.next==null) break;
+            temp=p.next;
+            p.next=p.next.next;
+            temp.next=p.next.next;
+            p.next.next=temp;
+            p=p.next.next;
+        }
+        return p1.next;
+    }
+    public static int[] reversePrint(ListNode head) {
+        Stack<ListNode> stack=new Stack<>();
+        ListNode l=head;
+        while(l!=null){
+            stack.push(l);
+            l=l.next;
+        }
+        int[] a=new int[stack.size()];
+        int index=0;
+        while(!stack.isEmpty()){
+            a[index]=stack.pop().val;
+            index++;
+        }
+        return a;
     }
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {

@@ -53,9 +53,31 @@ public class StringTest {
         System.out.println(reverse(-7890));*/
        // System.out.println(backspaceCompare("xywrrmp", "xywrrm#p"));
         //System.out.println(sortString("aaaabbbbcccc"));
-        System.out.println(longestValidParentheses("(()"));
+        //System.out.println(longestValidParentheses("(()"));
+        System.out.println("a b".charAt(0));
+        char c = "a b".charAt(1);
+        String s = "We are happy.";
+        //System.out.println(replaceSpace(s));
+        //permutation("abc");
     }
 
+ /*   public static String[] permutation(String s) {
+        for (int i = 0; i <s.length() ; i++) {
+
+        }
+    }*/
+
+    public static String replaceSpace(String s) {
+        String result="";
+        for (int i = 0; i <s.length() ; i++) {
+            if(s.charAt(i)!=(char)" ".charAt(0)){
+                result=result+s.charAt(i);
+            }else {
+                result=result+"%20";
+            }
+        }
+        return result;
+    }
     public static  int longestValidParentheses(String s) {
         if(s==null || s.length()==0) return 0;
         int left=0;

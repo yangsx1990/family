@@ -1,6 +1,8 @@
 package com.family.algorithm.practice;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @description:
@@ -34,7 +36,61 @@ public class IntegerTest {
         result[0]=new int[]{1,2,3};
         result[1]=new int[]{4,5,6};
         //result[2]=new int[]{7,8,9};
-        System.out.println(transpose(result).length);
+       // System.out.println(transpose(result).length);
+        Integer a=1024;
+        //System.out.println(fibV1(45));
+        System.out.println(waysToStep(61));
+
+    }
+
+
+    public static int waysToStep(int n) {
+        if(n==1) return 1;
+        int[] dp=new int[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        dp[2]=2;
+        for (int i = 3; i <=n; i++) {
+            dp[i]=(dp[i-1]+(dp[i-2]+dp[i-3]) % 1000000007) % 1000000007;
+            //dp[i]=dp[i] % 1000000007;
+        }
+        return dp[n];
+    }
+   /* public static int[] singleNumbers(int[] nums) {
+        int prev=nums[0];
+        for (int i = 1; i <nums.length ; i++) {
+
+        }
+    }*/
+
+    public static int fib(int n) {
+        if(n==1) return 1;
+        if(n==0) return 0;
+        return fib(n-1)+fib(n-2);
+    }
+
+    public int findRepeatNumber(int[] nums) {
+        Map<Integer,Integer> map=new HashMap();
+        for (int n:nums){
+            if(map.containsKey(n)){
+                return n;
+            }else {
+                map.put(n,1);
+            }
+        }
+        return 0;
+    }
+    public static int fibV1(int n) {
+        if(n==1) return 1;
+        if(n==0) return 0;
+        int[] temp=new int[n+1];
+        temp[0]=0;
+        temp[1]=1;
+        for (int i = 2; i <n+1 ; i++) {
+            temp[i]=temp[i-1]+temp[i-2];
+            temp[i] %=1000000007;
+        }
+        return temp[n];
     }
 
     public  static int[][] transpose(int[][] A) {

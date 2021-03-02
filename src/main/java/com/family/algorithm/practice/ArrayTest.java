@@ -11,7 +11,7 @@ import java.util.*;
 public class ArrayTest {
 
     public static void main(String[] args) {
-        int[] nums=new int[]{9};
+        int[] nums = new int[]{9};
         //System.out.println("去重后的长度："+getLength(nums));
         //System.out.println("abc".substring(1,3));
         //System.out.println(getIndexStr("mississippi","issipi"));
@@ -24,7 +24,7 @@ public class ArrayTest {
         //printArray(plusOne(nums));
         //printArray(plusOneV1(nums));
         //System.out.println(lengthOfLastWord("b   a    "));
-       // System.out.println(binaryToTen("1111"));
+        // System.out.println(binaryToTen("1111"));
         /*int[] numss=new int[]{1,2,3,1};
         System.out.println(rob(numss));*/
        /* int[] numss=new int[]{-2,1,-3,4,-1,2,1,-5,4};
@@ -35,7 +35,7 @@ public class ArrayTest {
         int[] ns1=new int[]{1,2,3};
         //printArray(twoSum(ns,-1));
         merge(ns,3,ns1,3);*/
-        int[] numss=new int[]{8,-19,5,-4,20};
+        int[] numss = new int[]{8, -19, 5, -4, 20};
         //System.out.println(containsDuplicate(numss));
         //System.out.println(containsNearbyDuplicate(numss,1));
 
@@ -49,18 +49,18 @@ public class ArrayTest {
         //System.out.println(getString("21"));
         //System.out.println(getRow(3));
         //System.out.println(isSubsequence("abc","adddbdec"));
-       // System.out.println("1234".substring(1,3));
-        int[] num=new int[]{0,1,2,4};
+        // System.out.println("1234".substring(1,3));
+        int[] num = new int[]{0, 1, 2, 4};
         //System.out.println(missingNumber(num));
-        int[] n=new int[num.length];
-        n=num;
+        int[] n = new int[num.length];
+        n = num;
         //printArray(n);
 
 
         //System.out.println(transpose(a));
 
-        int[] s=new int[]{-1,-2,-3,-4};
-        int[] t=new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
+        int[] s = new int[]{-1, -2, -3, -4};
+        int[] t = new int[]{1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
         //System.out.println(largestPerimeterV1(s));
         /*char[] chars=new char[]{'a','b'};
         reverseString(chars);*/
@@ -69,12 +69,12 @@ public class ArrayTest {
         //System.out.println(climbStairs(6));
         //System.out.println(minCostClimbingStairs1(t));
         //System.out.println(maximumProduct(s));
-        int[][] a=new int[][]{{5,10},{2,5},{4,7},{3,9}};
+        int[][] a = new int[][]{{5, 10}, {2, 5}, {4, 7}, {3, 9}};
         //System.out.println(maximumUnits(a,10));
-        int[] a1=new int[]{4,2,5,7};
+        int[] a1 = new int[]{4, 2, 5, 7};
         //printArray(sortArrayByParityII(a1));
 
-        int[] temp=new int[]{4};
+        int[] temp = new int[]{4};
         /*for (int i=0;i<temp.length;i++){
             temp[i]=temp[i]*10000-temp[i]+10000;
             System.out.println(temp[i]);
@@ -108,13 +108,404 @@ public class ArrayTest {
         System.out.println(list);*/
         //System.out.println(minSubsequence(temp));
         //allCellsDistOrder(80,57,19,38);
-        int[] nn=new int[]{4,2};
-       // System.out.println(majorityElement1(nn));
+
+        // System.out.println(majorityElement1(nn));
         //printArray(searchRange(nn,8));
         //printArray(sortedSquares(nn));
         //System.out.println(sumOddLengthSubarrays(nn));
+        int[] nn = new int[]{1, 3};
+        int[] n1 = new int[]{2, 6};
+        int[][] aa = new int[][]{{1, 4}, {5, 6}};
+        //int[][] tt=merge(aa);
+        //System.out.println(tt);
+        int[] str = new int[]{2, 2, 0, 2};
+        //System.out.println(removeDuplicates1(str));
+        //System.out.println(missingNumber1(new int[]{0}));
+        //int[] str=new int[]{10,1,10,10,10};
+        //System.out.println(minArrayBinarySearch(str));
+        int[] temp1 = new int[]{2,1,4};
+        //printArray(twoSumV1(temp1,9));
+        //printArray(maxSlidingWindow(temp1,3));
+        //printArray(exchange(temp1));
+        //System.out.println(isStraight(temp1));
+        //System.out.println(maxProfitV2(temp1));
+        //System.out.println(massage(new int[]{2}));
+        int[] n11=new int[]{-12,-9,-3,-12,-6,15,20,-25,-20,-15,-10};
+        //System.out.println("result:"+maxSubArrayV3(n11));
+        //System.out.println(checkArithmeticSubarrays(n11,new int[]{0,1,6,4,8,7},new int[]{4,4,9,7,9,10}));
+        int[] nums1=new int[]{-1,-100,3,99};
+        //rotate(nums1,2);
+    /*    Map map=new HashMap();
+        map.put("a",1);
+
+        Map map1=new HashMap();
+        map1.put("a",1);
+        System.out.println(map.equals(map1));
+        System.out.println(map==map1);
+        */
+
+       String[] strs=new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
+       groupAnagrams(strs);
     }
 
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> map=new HashMap<>();
+        for (String str:strs){
+            char[] arrays=str.toCharArray();
+            Arrays.sort(arrays);
+            String key=new String(arrays);
+            List<String> list=map.getOrDefault(key,new ArrayList<String>());
+            list.add(str);
+            map.put(key,list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+
+
+
+    public static void rotate(int[] nums, int k) {
+        if(k==0) return;
+        int start=0;
+        int index=0;
+        int temp=Integer.MAX_VALUE;
+        int size=0;
+        while(index>=0){
+            int expectIndex=index+k;
+            if(expectIndex>= nums.length){
+                expectIndex=expectIndex-nums.length;
+            }
+            if(temp==Integer.MAX_VALUE){
+                temp=nums[expectIndex];
+                nums[expectIndex]=nums[index];
+            }else{
+                int t=nums[expectIndex];
+                nums[expectIndex]=temp;
+                temp=t;
+            }
+            size++;
+            index=expectIndex;
+            if(size==nums.length){
+                break;
+            }
+            if(index<=start){
+                index++;
+                start++;
+            }
+        }
+
+        printArray(nums);
+    }
+    public static List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        List<Boolean> list=new ArrayList<>();
+        for (int i = 0; i <l.length ; i++) {
+            int[] temp=Arrays.copyOfRange(nums,l[i],r[i]+1);
+            Arrays.sort(temp);
+            if(temp.length<2){
+                list.add(true);
+            }else {
+                int tempValue=temp[1]-temp[0];
+                Boolean status=true;
+                for (int j = 2; j <temp.length ; j++) {
+                    if(temp[j]-temp[j-1]!=tempValue){
+                        status=false;
+                        break;
+                    }
+                }
+                list.add(status);
+            }
+
+        }
+        return list;
+
+    }
+
+    public static int maxSubArrayV3(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        int preSum=dp[0];
+        int max=preSum;
+        int result=max;
+        for (int i = 1; i <nums.length ; i++) {
+            if(nums[i]<0){
+                max=Math.max(dp[i-1],nums[i]);
+                preSum+=nums[i];
+            }else{
+                if(preSum<0) preSum=0;
+                preSum+=nums[i];
+                max=Math.max(preSum,nums[i]);
+            }
+            dp[i]=max;
+            result=Math.max(result,max);
+            System.out.println(max);
+        }
+        return result;
+    }
+
+    public static int massage(int[] nums) {
+        if(nums==null || nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int max=Math.max(nums[0],nums[1]);
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        dp[1]=Math.max(dp[0],nums[1]);
+        for (int i = 2; i <nums.length ; i++) {
+            dp[i]=Math.max(dp[i-1],dp[i-2]+nums[i]);
+            System.out.println(dp[i]);
+            max=Math.max(dp[i],max);
+        }
+        return max;
+    }
+    public static int maxProfitV2(int[] prices) {
+        if(prices.length<2){
+            return 0;
+        }
+        int p=1;
+        int max=0;
+        int minNumber=prices[0];
+        while(p<prices.length){
+            if(prices[p]<prices[p-1]){
+                minNumber=Math.min(minNumber,prices[p]);
+                p++;
+            }else{
+                max=Math.max(max,prices[p]-minNumber);
+                minNumber=Math.min(minNumber,prices[p-1]);
+                p++;
+            }
+        }
+        return max;
+    }
+    public static boolean isStraight(int[] nums) {
+        int min = 14;
+        int max = 0;
+        int zeroCount = 0;
+        for (int n : nums) {
+            if (n == 0) {
+                zeroCount++;
+            } else {
+                min = Math.min(n, min);
+                max = Math.max(n, max);
+            }
+        }
+        if (max - min > 4) {
+            return false;
+        }
+        int[] temp = new int[14];
+        for (int i = 0; i < nums.length; i++) {
+            temp[nums[i]] = 1;
+        }
+
+        int count = 0;
+        boolean status = false;
+        for (int i = 1; i < temp.length; i++) {
+
+            if (temp[i] == 1) {
+                count++;
+                status = true;
+            } else if (status) {
+                if (zeroCount == 0) {
+                    return false;
+                }
+                zeroCount--;
+                count++;
+            }
+            if (count == 5) {
+                return true;
+            }
+            if(i==temp.length-1 &&  5-count==zeroCount){
+                return true;
+            }
+        }
+        return false;
+
+    }
+    public static int[] exchange(int[] nums) {
+        int p=0;
+        int q=nums.length-1;
+        while(p<q){
+            if(nums[q] %2 ==0){
+                q--;
+            }else if(nums[p] %2!=0){
+                p++;
+            }else if(nums[p] %2==0){
+                int temp=nums[q];
+                nums[q]=nums[p];
+                nums[p]=temp;
+                q--;
+                p++;
+            }
+        }
+        return nums;
+    }
+    public static int[] maxSlidingWindow(int[] nums,int k) {
+        if(nums==null || nums.length==0) return new int[]{};
+        int[] result=new int[nums.length-k+1];
+        int index=0;
+        boolean status=true;
+        for (int i = 0; i <nums.length-k+1  ; i++) {
+            int newAddIndex=i+k-1;
+            if(index>0 && newAddIndex<nums.length&& result[index-1]<nums[newAddIndex]){
+                result[index]=nums[newAddIndex];
+            }else if(!status && newAddIndex< nums.length){
+                result[index]=Math.max(result[index-1],nums[newAddIndex]);
+            }else {
+                int max=Integer.MIN_VALUE;
+                for (int j = i; j <i+k && j<nums.length; j++) {
+                    max=Math.max(max,nums[j]);
+                }
+                result[index]=max;
+            }
+            if(result[index]!=nums[i]) {
+                status=false;
+            }else{
+                status=true;
+            }
+            index++;
+        }
+        return result;
+    }
+
+
+    public static int[] twoSumV1(int[] nums, int target) {
+        Map<Integer,Integer> map=new HashMap<>();
+        for (int n:nums){
+            if(map.containsKey(n)){
+                return new int[]{map.get(n),n};
+            }else {
+                map.put(target-n,n);
+            }
+        }
+        return null;
+    }
+
+    public static int minArrayBinarySearch(int[] numbers) {
+        if(numbers==null || numbers.length==0) return 0;
+        if(numbers.length==1) return numbers[0];
+        int left=0;
+        int right=numbers.length-1;
+        boolean status=false;
+        if(numbers[left]<numbers[right]) status=true;
+        while(left<right){
+            if(left==right-1){
+                return Math.min(numbers[left],numbers[right]);
+            }
+            int mid=(left+right)/2;
+            if(numbers[left]>numbers[mid]){
+                right=mid;
+            }else if(numbers[left]==numbers[right]) {
+                left++;
+                if(numbers[left]<numbers[right]) status=true;
+            }else {
+                if(status){
+                    right=mid;
+                }else {
+                    left = mid;
+                }
+            }
+
+
+        }
+        return -1;
+    }
+    public static int findMin(int[] nums) {
+        if(nums.length==1) return nums[0];
+        for (int i=1;i<nums.length;i++){
+            if(nums[i]<nums[i-1]){
+                return nums[i];
+            }
+        }
+        return 0;
+    }
+
+
+    public static int missingNumber1(int[] nums) {
+        if(nums.length>0 && nums[0]!=0) return 0;
+        int big=nums[nums.length-1];
+        int sum=big*(big+1)/2;
+        int numSum=0;
+        for(int n:nums){
+            numSum+=n;
+        }
+        if(sum-numSum==0){
+            return big+1;
+        }else{
+            return sum-numSum;
+        }
+    }
+    public static int removeDuplicates1(int[] nums) {
+        int i=1,count=1,length=nums.length;
+        while(i<length){
+            if(nums[i]==nums[i-1]){
+                count++;
+                if(count>2){
+                    removeElements(nums,i);
+                    i--;
+                    length--;
+                }
+            }else {
+                count=1;
+            }
+                i++;
+        }
+        return length;
+    }
+
+    private static void removeElements(int[] nums, int i) {
+        for (int j = i+1; j <nums.length ; j++) {
+            nums[j-1]=nums[j];
+        }
+    }
+
+    /*public static int removeDuplicates(int[] nums) {
+        int temp=nums[0];
+        int count=1;
+        int toModify=0;
+        for (int i = 1; i <nums.length ; i++) {
+            if(nums[i]==temp){
+                count++;
+                if(count>2){
+                    toModify=i;
+                }
+            }else if(toModify>0) {
+                //要替换
+                nums[toModify]=nums[i];
+                temp=nums[i];
+                count=1;
+                nums[i]=-10001;
+            }else{
+                temp=nums[i];
+                count=1;
+            }
+        }
+
+    }*/
+    public static int[][] merge(int[][] intervals) {
+        int[][] result=new int[intervals.length][];
+        int index=0;
+        int temp=intervals[0][intervals[0].length-1];
+        for (int i = 1; i <intervals.length ; i++) {
+            if(temp>=intervals[i][0]){
+                int[] a=new int[]{intervals[i-1][0],intervals[i][intervals[i].length-1]};
+                result[index]=a;
+            }else{
+                if(i==1){
+                    result[index]=intervals[i-1];
+                    index++;
+                }
+                result[index]=intervals[i];
+            }
+            index++;
+            temp=intervals[i][intervals[i].length-1];
+
+
+        }
+        return  Arrays.copyOfRange(result,0,index);
+    }
+
+   /* public static int[] sort(int[] a){
+        int[] result
+    }*/
 
 
     public static int[] sortedSquares(int[] nums) {

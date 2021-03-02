@@ -35,7 +35,56 @@ public class SortTest {
         int[] b1=new int[]{26,21,11,20,50,34,1,18,0};
         int[] b2=new int[]{2,7,4,9,3,1};
         //printArray(relativeSortArray(b1,b2));
-        printArray(quickSortV1(b2));
+        //printArray(quickSortV1(b2));
+        printArray(mergeSort(b1));
+    }
+
+    /**
+     * 归并排序
+     * @param a
+     * @return
+     */
+    private static int[] mergeSort(int[] a) {
+          mergeV1(a,0,a.length,true);
+          int index=1;
+          while(index<a.length){
+              mergeV2(a,0,0,1,1);
+          }
+        return null;
+    }
+
+    private static int[] mergeV1(int[] a, int start, int end,boolean status) {
+        if(status){
+            if(end-start>1) {
+                int mid = (end - start) / 2;
+                mergeV1(a, start, mid,true);
+                mergeV1(a, mid + 1, end,true);
+            }else{
+                if(a[start]>a[end]){
+                    int temp=a[end];
+                    a[end]=a[start];
+                    a[start]=temp;
+                }
+            }
+        }else{
+
+        }
+        return null;
+    }
+    private static int[] mergeV2(int[] a, int s1, int e1,int s2,int e2) {
+        int[] arr=new int[e2-s1+1];
+        int index=arr.length-1;
+        while(e1>=s1 && e2>=s2){
+            if(a[e1]>a[e2]){
+                arr[index]=a[e1];
+                e1--;
+            }else{
+                arr[index]=a[e2];
+                e2--;
+            }
+            index--;
+        }
+        return null;
     }
 
     public static int[] quickSortV1(int[] nums){

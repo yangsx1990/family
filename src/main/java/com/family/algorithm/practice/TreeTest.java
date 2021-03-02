@@ -114,7 +114,45 @@ public class TreeTest {
         d3.left=d5;
         d3.right=d6;
         d6.right=d9;
-        System.out.println(hasPathSum(d1,10));
+        //System.out.println(hasPathSum(d1,10));
+        TreeNode o1=new TreeNode(3);
+        TreeNode o2=new TreeNode(4);
+        TreeNode o3=new TreeNode(5);
+        TreeNode o4=new TreeNode(1);
+        TreeNode o5=new TreeNode(2);
+        o1.left=o2;
+        o1.right=o3;
+        o2.left=o4;
+        o2.right=o5;
+        TreeNode o22=new TreeNode(4);
+        TreeNode o42=new TreeNode(1);
+        o22.left=o42;
+
+        System.out.println(isSubStructure(o1,o22));
+
+    }
+
+    public static boolean isSubStructure(TreeNode A, TreeNode B) {
+        return (A!=null && B!=null) &&( recur(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B));
+    }
+
+    private static boolean recur(TreeNode a, TreeNode b) {
+        if(b==null) return true;
+        if(a==null || a.val!=b.val) return false;
+        return recur(a.left,b.left) && recur(a.right,b.right);
+    }
+
+    private static Queue readTree(TreeNode A) {
+        Queue<TreeNode> queue=new ArrayDeque<>();
+        queue.add(A);
+        while(!queue.isEmpty()){
+            TreeNode head = queue.poll();
+
+            System.out.println(head.val);
+            if(head.left!=null) queue.add(head.left);
+            if(head.right!=null) queue.add(head.right);
+        }
+        return queue;
     }
 
     public static boolean hasPathSum(TreeNode root, int sum) {
