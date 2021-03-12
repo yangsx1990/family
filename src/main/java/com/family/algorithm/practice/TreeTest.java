@@ -128,8 +128,123 @@ public class TreeTest {
         TreeNode o42=new TreeNode(1);
         o22.left=o42;
 
-        System.out.println(isSubStructure(o1,o22));
+       // System.out.println(isSubStructure(o1,o22));
 
+        TreeNode e1=new TreeNode(3);
+        TreeNode e2=new TreeNode(5);
+        TreeNode e3=new TreeNode(1);
+
+
+        TreeNode e4=new TreeNode(6);
+        TreeNode e5=new TreeNode(2);
+        TreeNode e6=new TreeNode(0);
+
+        TreeNode e7=new TreeNode(8);
+        TreeNode e8=new TreeNode(7);
+        TreeNode e9=new TreeNode(4);
+
+        e1.left=e2;
+        e1.right=e3;
+        e2.left=e4;
+        e2.right=e5;
+        e5.left=e8;
+        e5.right=e9;
+        e3.left=e6;
+        e3.right=e7;
+        System.out.println(lowestCommonAncestorV3(e1,e2,e9).val);
+    }
+
+    public static TreeNode lowestCommonAncestorV3(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==p || root==q) return root;
+        if(root==null) return null;
+        TreeNode lNode=lowestCommonAncestorV3(root.left,p,q);
+        TreeNode rNode=lowestCommonAncestorV3(root.right,p,q);
+        if(lNode==null) return rNode;
+        if(rNode==null) return lNode;
+        return root;
+    }
+    public static TreeNode lowestCommonAncestorV2(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode node=null;
+        dfs(root,p,q,node);
+        return node;
+    }
+
+    private static boolean dfs(TreeNode root, TreeNode p, TreeNode q,TreeNode node) {
+        if(root==null) return false;
+        boolean lson=dfs(root.left,p,q,node);
+        boolean rson=dfs(root.right,p,q,node);
+        if(lson && rson){
+            node=root;
+            System.out.println(node==null?"--":node.val);
+        }
+        if((root.val==p.val || root.val==q.val) && (lson || rson)){
+            node=root;
+            System.out.println(node==null?"--":node.val);
+        }
+        return lson || rson ||(root.val==p.val || root.val ==q.val);
+    }
+
+    public static TreeNode lowestCommonAncestorV1(TreeNode root, TreeNode p, TreeNode q) {
+        if(root.val==p.val || root.val==q.val) return root;
+        TreeNode t1=forEachNode(root,p);
+        TreeNode t2=forEachNode(root,q);
+        if(t1==t2){
+            return t1;
+        }else{
+            return lowestCommonAncestorV1(root,t1,t2);
+        }
+    }
+
+    private static TreeNode forEachNode(TreeNode root, TreeNode p) {
+        if(root.val==p.val){
+            return root;
+        }
+        if(root.left!=null){
+            if(root.left.val==p.val){
+                return root;
+            }else {
+                forEachNode(root.left,p);
+            }
+        }
+        if(root.right!=null){
+            if(root.right.val==p.val){
+                return root;
+            }else {
+                forEachNode(root.right,p);
+            }
+        }
+        return null;
+    }
+
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        Queue<TreeNode> queue=new ArrayDeque<>();
+        queue.add(root);
+        Stack<TreeNode> stack1=new Stack();
+        containNode(p,queue,stack1);
+
+        Stack<TreeNode> stack2=new Stack();
+        containNode(q,queue,stack2);
+        return stack1.size()>stack2.size()?stack2.pop():stack1.pop();
+
+
+    }
+
+    private static void containNode(TreeNode treeNode,Queue<TreeNode> queue,Stack stack){
+        TreeNode root=queue.poll();
+        if(root.val==treeNode.val){
+            return;
+        }
+        if(root.left!=null){
+            queue.add(root.left);
+        }
+        if(root.right!=null){
+            queue.add(root.right);
+        }
+        if(root.right.val!=treeNode.val){
+            stack.push(root.val);
+        }
+        containNode(treeNode,queue,stack);
     }
 
     public static boolean isSubStructure(TreeNode A, TreeNode B) {

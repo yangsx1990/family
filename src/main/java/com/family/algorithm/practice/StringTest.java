@@ -54,12 +54,16 @@ public class StringTest {
        // System.out.println(backspaceCompare("xywrrmp", "xywrrm#p"));
         //System.out.println(sortString("aaaabbbbcccc"));
         //System.out.println(longestValidParentheses("(()"));
-        System.out.println("a b".charAt(0));
         char c = "a b".charAt(1);
         String s = "We are happy.";
         //System.out.println(replaceSpace(s));
         //permutation("abc");
+        String[] as=new String[]{"1lovw","1i"};
+        Arrays.sort(as);
+        System.out.println(as);
+
     }
+
 
  /*   public static String[] permutation(String s) {
         for (int i = 0; i <s.length() ; i++) {

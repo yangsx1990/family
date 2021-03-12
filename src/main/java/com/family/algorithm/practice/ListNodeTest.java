@@ -67,6 +67,7 @@ public class ListNodeTest {
         print(swapPairs(t1));
     }
 
+
     public static ListNode swapPairs(ListNode head) {
         if(head==null || head.next==null) return head;
         ListNode p1=new ListNode(0);

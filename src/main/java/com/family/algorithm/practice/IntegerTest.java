@@ -1,5 +1,6 @@
 package com.family.algorithm.practice;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,10 +40,84 @@ public class IntegerTest {
        // System.out.println(transpose(result).length);
         Integer a=1024;
         //System.out.println(fibV1(45));
-        System.out.println(waysToStep(61));
+        //System.out.println(waysToStep(61));
+        //System.out.println(arrangeCoins(1804289383));
+        //System.out.println(myPow(2.0000,10));
+        double x=2.0000;
+        System.out.println(getValue(2.000000,-2));
+        /*double b=11.22224;
+        System.out.println((double)Math.round(b *10000)/10000);*/
+
+
+       /* double d = 114.0000000;
+         BigDecimal b = new BigDecimal(d);
+        d = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(d);*/
+    }
+    public static double quickMul(double x, long N) {
+        if(N==0) return 1.0;
+        double y=quickMul(x,N/2);
+        return N % 2==0?y*y:y*y*x;
+    }
+
+    private static double myPow(double x, long l) {
+        long N=l;
+        return N>=0?quickMul(x,N):1.0/quickMul(x,-N);
+    }
+
+    private static double getValue(double x, int n) {
+        while(n>=1 || n<=-1){
+            if(n % 2==0){
+                n=n/2;
+
+                if(n>0){
+                    double y=getValue(x,n);
+                    return y*y;
+                }else {
+                    n=-n;
+                    double y=getValue(x,n);
+                    return 1/(y*y);
+                }
+            }else {
+                if(n==1) return x;
+                if(n==-1) return 1/x;
+                if(n>0){
+                    n--;
+                    return x*getValue(x,n);
+                }else {
+                    n++;
+                    n=-n;
+                    return 1/(x*getValue(x,n));
+                }
+
+            }
+        }
+        return 1;
 
     }
 
+    public static int arrangeCoins(int n) {
+        if(n==0) return 0;
+        int left=1;
+        int right=n;
+        while(left<right-1){
+            long mid=(right-left)/2+left;
+            long midSum=mid*(1+mid)/2;
+            if(midSum==n) return (int)mid;
+            if(midSum<n){
+                left=(int)mid;
+            }else {
+                right=(int)mid;
+            }
+        }
+        //if(compute(left)<n && compute(right)>n){
+            return left;
+        //}
+    }
+
+    private static int compute(int mid) {
+        return mid*(1+mid)/2;
+    }
 
     public static int waysToStep(int n) {
         if(n==1) return 1;

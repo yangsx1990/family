@@ -145,9 +145,53 @@ public class ArrayTest {
         */
 
        String[] strs=new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
-       groupAnagrams(strs);
-    }
+       //groupAnagrams(strs);
+        String[] strss=new String[]{"a","aa","aaa"};
+        topKFrequent(strss,1);
 
+    }
+    public static List<String> topKFrequent(String[] words, int k) {
+        if(words==null || words.length==0) return null;
+        Map<String,Integer> map=new HashMap<>();
+        int max=0;
+        for (String str:words){
+            if(map.containsKey(str)){
+                map.put(str,map.get(str)+1);
+                max=Math.max(max,map.get(str));
+            }else{
+                map.put(str,1);
+            }
+        }
+        max=max==0?1:max;
+        Map<Integer,List<String>> resultMap=new HashMap<>();
+        for (String key:map.keySet()){
+             Integer value=map.get(key);
+            if(resultMap.containsKey(value)){
+                List tempList=resultMap.get(value);
+                tempList.add(key);
+                resultMap.put(value,tempList);
+            }else {
+                List<String> tempList=new ArrayList<>();
+                tempList.add(key);
+                resultMap.put(value,tempList);
+            }
+        }
+        List<String> strList=new ArrayList<>();
+        int currentSize=0;
+        for (int i = max; i >= 0; i--) {
+            if(k<=0){
+                break;
+            }
+            if(resultMap.containsKey(i)){
+                List<String> list=resultMap.get(i);
+                String[] tempStr= list.toArray(new String[list.size()]);
+                Arrays.sort(tempStr);
+                strList.addAll(Arrays.asList(Arrays.copyOf(tempStr,k-currentSize>tempStr.length?tempStr.length:k-currentSize)));
+                k=k-list.size();
+            }
+        }
+        return strList;
+    }
     public static List<List<String>> groupAnagrams(String[] strs) {
         Map<String,List<String>> map=new HashMap<>();
         for (String str:strs){
