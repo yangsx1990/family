@@ -151,7 +151,174 @@ public class TreeTest {
         e5.right=e9;
         e3.left=e6;
         e3.right=e7;
-        System.out.println(lowestCommonAncestorV3(e1,e2,e9).val);
+        //System.out.println(lowestCommonAncestorV3(e1,e2,e9).val);
+
+        TreeNode f1=new TreeNode(27);
+        TreeNode f2=new TreeNode(34);
+        TreeNode f3=new TreeNode(58);
+        TreeNode f4=new TreeNode(50);
+        TreeNode f5=new TreeNode(44);
+        f1.right=f2;
+        f2.right=f3;
+        f3.left=f4;
+        f4.left=f5;
+        //f3.right=f5;
+        //zigzagLevelOrder(f1);
+        //zigzagLevelOrder(null);
+
+        TreeNode g1=new TreeNode(90);
+        TreeNode g2=new TreeNode(69);
+        TreeNode g3=new TreeNode(49);
+        TreeNode g4=new TreeNode(89);
+        TreeNode g5=new TreeNode(52);
+        g1.left=g2;
+        g2.left=g3;
+        g2.right=g4;
+        g3.right=g5;
+        //System.out.println(minDiffInBST(g1));
+        //System.out.println(leftMiddleRight(g1));
+
+        TreeNode g11=new TreeNode(1);
+        TreeNode g12=new TreeNode(0);
+        TreeNode g13=new TreeNode(48);
+        TreeNode g14=new TreeNode(12);
+        TreeNode g15=new TreeNode(49);
+        g11.left=g12;
+        g11.right=g13;
+        g13.right=g15;
+        g13.left=g14;
+        System.out.println(rangeSumBSTV1(g11,12,44));
+    }
+
+    public static  int rangeSumBSTV1(TreeNode root, int low, int high) {
+        return forEachV2(root,low,high,0);
+    }
+    public static int forEachV2(TreeNode root,int low,int high,int sum){
+        if(root==null) return 0 ;
+        if(root.val>=low && root.val<=high){
+            sum+=root.val;
+        }
+        int v1=forEachV2(root.left,low,high,sum);
+        int v2=forEachV2(root.right,low,high,sum);
+        return sum;
+    }
+    public static int rangeSumBST(TreeNode root, int low, int high) {
+        List<Integer> list=new ArrayList<>();
+        forEachV1(root,list);
+        int sum=0;
+        for (Integer id:list){
+            if(id>=low && id<=high){
+                sum+=id;
+            }
+        }
+        return sum;
+    }
+
+    public  static void forEachV1(TreeNode root,List<Integer> list){
+        if(root==null) return ;
+        list.add(root.val);
+        forEachV1(root.left,list);
+        forEachV1(root.right,list);
+    }
+    public static int leftMiddleRight(TreeNode root){
+        List<Integer> list=new ArrayList<>();
+        forEach(root,list);
+        Integer min=Integer.MAX_VALUE;
+        for (int i = 1; i <list.size(); i++) {
+            int value=list.get(i)-list.get(i-1);
+            value=value>0?value:-value;
+            min=Math.min(min,value);
+        }
+        return min;
+    }
+
+    public static void forEach(TreeNode root,List<Integer> list){
+        if(root==null) return;
+        if(root.left==null && root.right==null){
+            list.add(root.val);
+            return;
+        }
+        forEach(root.left,list);
+        list.add(root.val);
+        forEach(root.right,list);
+    }
+    public static int minDiffInBST(TreeNode root) {
+        if(root==null) return -1;
+        if(root.left==null && root.right==null){
+            return -1;
+        }
+        int v1=Integer.MAX_VALUE;
+        int v2=Integer.MAX_VALUE;
+        if(root.right!=null){
+            v2=minDiffInBST(root.right);
+            int value=getMin(root,false);
+            if(v2==-1){
+                v2=value;
+            }else{
+                v2=Math.min(value,v2);
+            }
+
+        }
+
+        if(root.left!=null){
+            v1=minDiffInBST(root.left);
+            int a=getMin(root,true);
+            if(v1==-1){
+                v1=a;
+            }else{
+                v1=Math.min(a,v1);
+            }
+        }
+
+/*
+
+        if(v1==-1) return v2;
+        if(v2==-1) return v1;*/
+        return v1>v2?v2:v1;
+
+    }
+
+    public static int getMin(TreeNode root,boolean isLeft) {
+        int value=0;
+        if(isLeft){
+            value=root.val-root.left.val;
+        }else {
+            value=root.val-root.right.val;
+        }
+        return value>0?value:-value;
+    }
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        if(root==null) return new ArrayList<>();
+        List<List<Integer>> resultList=new ArrayList<>();
+        Queue<TreeNode> queue=new ArrayDeque<>();
+        queue.add(root);
+        boolean isOrderLeft=true;
+
+        while(!queue.isEmpty()){
+            Deque<Integer> levelDeque=new LinkedList<>();
+            int size=queue.size();
+            while(size>0){
+                TreeNode top=queue.poll();
+                if(isOrderLeft){
+                    levelDeque.offerLast(top.val);
+                }else {
+                    levelDeque.offerFirst(top.val);
+                }
+                if(top.left!=null) {
+                    queue.add(top.left);
+                }
+                if(top.right!=null) {
+                    queue.add(top.right);
+                }
+                size--;
+            }
+
+            resultList.add(new LinkedList<>(levelDeque));
+            isOrderLeft=!isOrderLeft;
+
+        }
+
+        return resultList;
     }
 
     public static TreeNode lowestCommonAncestorV3(TreeNode root, TreeNode p, TreeNode q) {

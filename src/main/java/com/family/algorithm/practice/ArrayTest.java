@@ -147,7 +147,68 @@ public class ArrayTest {
        String[] strs=new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
        //groupAnagrams(strs);
         String[] strss=new String[]{"a","aa","aaa"};
-        topKFrequent(strss,1);
+        //topKFrequent(strss,1);
+        char[][] as=new char[][]{{'1','1','1','1','0'},
+                {'1','1','0','1','0'},
+                {'1','1','0','0','0'},
+                {'0','0','0','0','0'}};
+        System.out.println(numIslands(as));
+
+    }
+
+    //岛屿数量-深度优先算法-递归实现
+    public static int numIslands(char[][] grid) {
+        int size=0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j <grid[0].length ; j++) {
+                if(grid[i][j]== '1'){
+                    ++size;
+                    dfs(grid,i,j);
+                }
+            }
+        }
+        return size;
+    }
+
+    private static void dfs(char[][] grid, int r, int c) {
+        int nr=grid.length;
+        int nc=grid[0].length;
+        System.out.println("r:"+r+",c="+c);
+        if(r<0 || c<0 || r>=nr || c>=nc || grid[r][c]=='0'){
+            return;
+        }
+        System.out.println("r:"+r+",c="+c);
+        grid[r][c]='0';
+        dfs(grid,r-1,c);
+        dfs(grid,r+1,c);
+        dfs(grid,r,c-1);
+        dfs(grid,r,c+1);
+
+    }
+
+    public static List<String> topKFrequentByMinHeap(String[] words, int k){
+        //1.构建词频
+        Map<String,Integer> map=new HashMap<>();
+        for (String str:words){
+            map.put(str,map.getOrDefault(str,0)+1);
+        }
+        //2.构建最小堆
+        PriorityQueue<String> minHeap=new PriorityQueue((o1,o2)->(map.get(o1)-map.get(o2)==0?((String)o2).compareTo(((String)o1)):map.get(o1)-map.get(o2)));
+        //往堆中添加元素，若堆中元素个数大于k，移除堆顶元素。
+        for (String key:map.keySet()){
+            minHeap.add(key);
+            if(minHeap.size()>k) minHeap.poll();
+        }
+        //3.弹出答案
+        List<String> ans=new ArrayList<>();
+        while(!minHeap.isEmpty()){
+            ans.add(minHeap.poll());
+        }
+
+        Collections.sort(ans,(o1,o2)->(
+                map.get(o2)-map.get(o1)==0?o1.compareTo(o2):map.get(o2)-map.get(o1)
+                ));
+        return ans;
 
     }
     public static List<String> topKFrequent(String[] words, int k) {
