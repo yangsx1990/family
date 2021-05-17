@@ -187,7 +187,159 @@ public class TreeTest {
         g11.right=g13;
         g13.right=g15;
         g13.left=g14;
-        System.out.println(rangeSumBSTV1(g11,12,44));
+        //System.out.println(rangeSumBSTV1(g11,12,44));
+
+        TreeNode s1=new TreeNode(3);
+        TreeNode s2=new TreeNode(5);
+        TreeNode s3=new TreeNode(1);
+        TreeNode s4=new TreeNode(6);
+        TreeNode s5=new TreeNode(2);
+        TreeNode s6=new TreeNode(9);
+        TreeNode s7=new TreeNode(8);
+        TreeNode s8=new TreeNode(7);
+        TreeNode s9=new TreeNode(4);
+        s1.left=s2;s1.right=s3;
+        s2.left=s4;s2.right=s5;
+        s3.left=s6;s3.right=s7;
+        s5.left=s8;s5.right=s9;
+        TreeNode ss1=new TreeNode(3);
+        TreeNode ss2=new TreeNode(5);
+        TreeNode ss3=new TreeNode(1);
+        TreeNode ss4=new TreeNode(6);
+        TreeNode ss5=new TreeNode(7);
+        TreeNode ss6=new TreeNode(4);
+        TreeNode ss7=new TreeNode(2);
+        TreeNode ss8=new TreeNode(9);
+        TreeNode ss9=new TreeNode(8);
+        ss1.left=ss2;ss1.right=ss3;
+        ss2.left=ss4;ss2.right=ss5;
+        ss3.left=ss6;ss3.right=ss7;
+        ss7.left=ss8;ss7.right=ss9;
+        //System.out.println(leafSimilarV2(s1,ss1));
+
+        /*TreeNode u1=new TreeNode(1);
+        TreeNode u2=new TreeNode(2);
+        TreeNode u3=new TreeNode(3);
+        u1.left=u2; u1.right=u3;
+        System.out.println(findTilt(u1));*/
+        TreeNode u1=new TreeNode(4);
+        TreeNode u2=new TreeNode(2);
+        TreeNode u3=new TreeNode(9);
+        TreeNode u4=new TreeNode(3);
+        TreeNode u5=new TreeNode(5);
+        TreeNode u6=new TreeNode(7);
+        u1.left=u2; u1.right=u3; u2.left=u4;u2.right=u5;u3.right=u6;
+        //System.out.println(findTilt(u1));
+        //System.out.println(findTiltV2(u1));
+    }
+
+    private static int getInt(TreeNode root,Map<String,Integer> map) {
+        if(root==null) return -1;
+        int left=root.left==null?0:root.left.val;
+        int right=root.right==null?0:root.right.val;
+
+        int leftValue=getInt(root.left,map);
+
+        //
+       //
+       // if(leftValue!=-1){
+            //System.out.println("root:"+root.val);
+            //System.out.println("right:"+right);
+        //}
+
+        int rightValue=getInt(root.right,map);
+
+        if(rightValue!=-1){
+            map.put("left",map.getOrDefault("left",0)+left);
+            map.put("right",map.getOrDefault("right",0)+right);
+            map.put("v",map.getOrDefault("v",0)+(map.get("left")-map.get("right")>0?map.get("left")-map.get("right"):map.get("right")-map.get("left")));
+            map.put("left",map.get("left")+map.get("right")+root.val);
+            map.put("right",0);
+        }
+        return map.getOrDefault("v",0);
+        //int value=map.get("left")-map.get("right")>0?map.get("left")-map.get("right"):map.get("right")-map.get("left");
+        //return value+leftValue+rightValue ;
+    }
+
+    public static boolean leafSimilarV2(TreeNode root1, TreeNode root2) {
+        if(root1==null) return false;
+        List<Integer> list1=new ArrayList<>();
+        List<Integer> list2=new ArrayList<>();
+        searchNode(root1,list1);
+        searchNode(root2,list2);
+        if(list1.size()!=list2.size()){
+            return false;
+        }
+        System.out.println("list1:"+list1);
+        System.out.println("list2:"+list2);
+        for (int i = 0; i <list1.size() ; i++) {
+            if(list1.get(i)!=list2.get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static void searchNode(TreeNode root,List<Integer> list1) {
+        if(root==null){
+            return;
+        }
+        if(root.left==null && root.right==null){
+            list1.add(root.val);
+        }
+        System.out.println(root.val);
+        searchNode(root.left,list1);
+        searchNode(root.right,list1);
+    }
+
+    public static boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        Queue<TreeNode> queue1=new ArrayDeque<>();
+        Queue<TreeNode> queue2=new ArrayDeque<>();
+        TreeNode p=root1;
+        TreeNode q=root2;
+        if(p!=null) queue1.offer(p);
+        if(q!=null) queue2.offer(q);
+        Integer preValue=null;
+        while(!queue1.isEmpty() && !queue2.isEmpty()){
+            TreeNode temp1=queue1.poll();
+            System.out.println("queue1……");
+            Integer value1=handle(temp1,queue1,preValue);
+            if(value1==null || value1!=-1){
+                preValue=value1;
+            }else{
+                return false;
+            }
+
+            TreeNode temp2=queue2.poll();
+            System.out.println("queue2……");
+            Integer value2=handle(temp2,queue2,preValue);
+            if(value2==null || value2!=-1){
+                preValue=value2;
+            }else{
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    private static Integer handle(TreeNode temp2, Queue<TreeNode> queue2, Integer preValue) {
+        System.out.println("temp value："+temp2.val);
+        if(temp2.left==null && temp2.right==null){
+            System.out.println(temp2.val+"：是叶子结点,"+"prevalue:"+preValue);
+            if(preValue==null) {
+                preValue=temp2.val;
+            }else if(preValue!=temp2.val){
+                return -1;
+            }else{
+                preValue=null;
+            }
+        }else{
+            if(temp2.left!=null) queue2.offer(temp2.left);
+            if(temp2.right!=null) queue2.offer(temp2.right);
+        }
+        System.out.println("处理结束："+preValue);
+        return preValue;
     }
 
     public static  int rangeSumBSTV1(TreeNode root, int low, int high) {

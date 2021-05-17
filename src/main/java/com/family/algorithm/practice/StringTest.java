@@ -60,10 +60,99 @@ public class StringTest {
         //permutation("abc");
         String[] as=new String[]{"1lovw","1i"};
         Arrays.sort(as);
-        System.out.println(as);
-
+        //System.out.println(as);
+       /* System.out.println(letterCasePermutation("a1b2"));
+        System.out.println("a1b2".substring(1,4));*/
+        //System.out.println(letterCasePermutationV2("a1b2"));
+        System.out.println(subsets(new int[]{1,2,3}));
     }
 
+    public static  List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> resultList=new ArrayList<>();
+        resultList.add(new ArrayList<>());
+        for (int i = 1; i <=nums.length ; i++) {
+            List<Integer> list=new ArrayList<>();
+            for (int j = 0; j < nums.length ; j++) {
+                list.add(nums[j]);
+                if(list.size()==i){
+                    resultList.add(list);
+                    list=new ArrayList<>();
+                }
+            }
+        }
+        return  resultList;
+    }
+
+    public static List<String> letterCasePermutationV2(String S) {
+       /* List<String> list=new ArrayList<>();
+        for (int i = 0; i <S.length() ; i++) {
+            for (int i = 0; i <S.length() ; i++) {
+                String s=S.substring(0,i)+changeStr(S.charAt(i))+S.substring(i+1,S.length());
+                list.add(s);
+            }
+        }
+
+        return list;*/
+        List<StringBuilder> list=new ArrayList<>();
+        list.add(new StringBuilder());
+
+        for (char c:S.toCharArray()){
+            int n=list.size();
+            //如果是字母
+            if(Character.isLetter(c)){
+                for (int i = 0; i <n ; i++) {
+                    list.add(new StringBuilder(list.get(i)));
+                    list.get(i).append(Character.toLowerCase(c));
+                    list.get(n+i).append(Character.toUpperCase(c));
+                }
+            }else{
+                for (int i = 0; i <n ; i++) {
+                    list.get(i).append(c);
+                }
+            }
+        }
+
+        List<String> result=new ArrayList<>();
+        for(StringBuilder stringBuilder:list){
+            result.add(stringBuilder.toString());
+        }
+        return result;
+    }
+
+    public static List<String> letterCasePermutation(String S) {
+        List<String> list=new ArrayList<>();
+        for (int i = 0; i <S.length() ; i++) {
+            if(isString(S.charAt(i))){
+                list.add(S);
+                String temp=changeStr(S.charAt(i));
+                if(i>0){
+                    list.add(S.substring(0,i-1)+temp+S.substring(i+1,S.length()));
+                }else{
+                    list.add(temp+S.substring(i+1,S.length()));
+                }
+            }
+        }
+        return list;
+    }
+
+    private static String changeStr(char a){
+        if((byte)a>=97 && (byte) a<=122){
+            return (char)((byte)a-32)+"";
+        }
+        if((byte)a>=65 && (byte) a<=90){
+            return (char)((byte)a+32)+"";
+        }
+        return "";
+    }
+    private static boolean isString(char a){
+        if((byte)a>=97 && (byte) a<=122){
+            return true;
+        }
+        if((byte)a>=65 && (byte) a<=90){
+            return true;
+        }
+        return false;
+    }
 
  /*   public static String[] permutation(String s) {
         for (int i = 0; i <s.length() ; i++) {

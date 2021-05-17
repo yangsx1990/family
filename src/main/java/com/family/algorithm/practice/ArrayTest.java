@@ -152,10 +152,57 @@ public class ArrayTest {
                 {'1','1','0','1','0'},
                 {'1','1','0','0','0'},
                 {'0','0','0','0','0'}};
-        System.out.println(numIslands(as));
-
+        //System.out.println(numIslands(as));
+        int[] prices=new int[]{1, 3, 2, 8, 4, 9};
+        //System.out.println(maxProfit(prices,2));
+        int[] cookies=new int[]{10,9,8,7};
+        System.out.println(findContentChildren(cookies,new  int[]{5,6,7,8}));
+        //System.out.println(findContentChildren(new int[]{1,2,3},new int[]{1,1}));
     }
 
+    public static int findContentChildren(int[] g, int[] s) {
+       /* Arrays.sort(g);
+        Arrays.sort(s);
+        int num=0;
+        loop:for (int i = 0; i <s.length ; i++) {
+            for (int j = num; j <g.length ; j++) {
+                if(s[i]>=g[j]){
+                    num++;
+                    if(num==g.length){
+                        break loop;
+                    }
+                    break;
+                }else{
+                    break ;
+                }
+            }
+        }
+        return num;*/
+        for (int i = 0,j=0; i < 10 && j<5; i++,j++) {
+            if(i==1){
+                j++;
+            }
+            System.out.println("i="+i+",j="+j);
+        }
+        return 0;
+    }
+    public static int maxProfit(int[] prices, int fee) {
+        int n=prices.length;
+        //购入股票的价格（基本价格+手续费）
+        int value=prices[0]+fee;
+        int profit=0;
+        for (int i = 0; i <n ; i++) {
+            //有更低的购入价格，进行替换
+           if(prices[i]+fee<value){
+               value=prices[i]+fee;
+               //当前股票的价格大于购入价格
+           }else if(prices[i]>value){
+               profit+=prices[i]-value;
+               value=prices[i];
+           }
+        }
+        return profit;
+    }
     //岛屿数量-深度优先算法-递归实现
     public static int numIslands(char[][] grid) {
         int size=0;
