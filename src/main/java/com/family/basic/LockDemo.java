@@ -18,7 +18,7 @@ public class LockDemo extends LockSuper{
     }
 
     private synchronized void test1() {
-        super.test();
+        //super.test();
         System.out.println("subClass test1---"+Thread.currentThread().getName());
     }
 }

@@ -369,18 +369,18 @@ public class IntegerTest {
         return result;
     }
 
-    public static String convertToTitle1(int n) {
+   /* public static String convertToTitle1(int n) {
         StringBuilder stringBuilder = new StringBuilder();
         while (n != 0) {
             n--; // 依次获取 26 进制逻辑上的个位、十位、百位…（虽然在 26 进制中不这么叫）
-            //System.out.println('A'+1);
-            int s='A' + n % 26;
+            //System.out.println('com.family.A'+1);
+            int s='com.family.A' + n % 26;
             System.out.println(s);
             stringBuilder.append((char) (s));
             n /= 26;
         }
         return stringBuilder.reverse().toString();
-    }
+    }*/
 
 
     public static String convertToTitle(int n) {
@@ -404,7 +404,7 @@ public class IntegerTest {
         String s="";
         switch (v1){
             case 1:
-                s="A";
+                s="com.family.A";
                 break;
             case 2:
                 s="B";

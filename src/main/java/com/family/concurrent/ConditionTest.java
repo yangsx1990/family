@@ -25,8 +25,9 @@ public class ConditionTest {
                     while(size<10) {
                         size++;
                         System.out.println("size++:"+size);
-                        //Thread.sleep(500);
+                        Thread.sleep(500);
                         c1.await();
+                        System.out.println("t1 结束await");
                     }
                     System.out.println("t1 await");
                     c1.signal();
@@ -49,10 +50,11 @@ public class ConditionTest {
             public void run() {
                 try{
                     lock.lock();
+                    System.out.println("t2,size="+size);
                     while(size>0){
                         size--;
                         System.out.println("size--:"+size);
-                        //Thread.sleep(500);
+                        Thread.sleep(500);
                         c1.signal();
                     }
                     c1.await();

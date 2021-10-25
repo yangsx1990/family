@@ -23,12 +23,12 @@ import java.net.URLConnection;
  * @modified By:
  */
 public class WaterMarkUtils {
-    public static int FONT_SIZE=200;
+    public static int FONT_SIZE=50;
 
-    public static String MARK_WORDS="测试";
+    public static String MARK_WORDS="仅在小希教育平台使用，复印无效";
 
     // 水印之间的间隔
-    private static final int XMOVE = 80;
+    private static final int XMOVE = 400;
     // 水印之间的间隔
     private static final int YMOVE = 80;
 
@@ -38,22 +38,22 @@ public class WaterMarkUtils {
     // 水印旋转度数
     private static final int DEGREE = 50;
 
-    private static String content="测试";
+    private static String content="测试测";
 
-    private static Color RED=Color.RED;
+    private static Color RED=Color.GRAY;
 
     public static void main(String[] args) {
 
 
 
-        String srcPath="/Users/yangsaixing/Desktop/个人海报.png";
-        String outPath="/Users/yangsaixing/Desktop/test.jpeg";
+        String srcPath="/Users/yangsaixing/Desktop/a.png";
+        String outPath="/Users/yangsaixing/Desktop/test1.jpeg";
 
         String urlPath="http://ks3-cn-beijing.ksyun.com/aojixiaoxi/studentClient/studentHeadPortrait/2020/08/15/1597470909070059885.png";
         String iconPath="/Users/yangsaixing/Desktop/icon1.jpg";
 
-        //new WaterMarkUtils().wordMarkForImg(srcPath,outPath);
-        new WaterMarkUtils().imgMarkForImg(srcPath,outPath,urlPath);
+        new WaterMarkUtils().wordMarkForImg(srcPath,outPath);
+        //new WaterMarkUtils().imgMarkForImg(srcPath,outPath,urlPath);
       /*  BufferedImage bufferedImage=new BufferedImage(500,300,BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = bufferedImage.createGraphics();
         Image image= null;
@@ -110,7 +110,7 @@ public class WaterMarkUtils {
 
             //设置水印位置
             setMarkLocation(srcImgWidth,srcImgHeight,graphics);
-
+            //graphics.rotate(Math.toRadians(DEGREE),(double)bufferedImage.getWidth()/2,(double)bufferedImage.getHeight()/2);
             graphics.dispose();
 
             //输出图片
@@ -163,11 +163,11 @@ public class WaterMarkUtils {
         graphics.setFont(font);
         if(DEGREE!=0){
             //设置水印旋转
-            //graphics.rotate(Math.toRadians(DEGREE),(double)bufferedImage.getWidth()/2,(double)bufferedImage.getHeight()/2);
+            graphics.rotate(Math.toRadians(DEGREE),(double)bufferedImage.getWidth()/2,(double)bufferedImage.getHeight()/2);
         }
 
         //水印透明度
-        //graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,alpha));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,alpha));
         if(StringUtils.hasText(iconPath)){
             ImageIcon imageIcon=new ImageIcon(new URL(iconPath));
             Image iconImage=imageIcon.getImage();
@@ -199,9 +199,9 @@ public class WaterMarkUtils {
         int markWidth=FONT_SIZE*getTextLength(content);
         int markHeight=FONT_SIZE;
 
-        while(x<srcImgWidth*1.5){
+        while(x<srcImgWidth*10){
             y = -srcImgHeight / 2;
-            while (y < srcImgHeight * 1.5) {
+            while (y < srcImgHeight * 10) {
                 graphics.drawString (MARK_WORDS, x, y);
 
                 y += markHeight + YMOVE;

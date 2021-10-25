@@ -7,7 +7,7 @@ package com.family.concurrent;
  * @modified By:
  */
 public class JoinTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("main thread:"+Thread.currentThread().getName());
 
 
@@ -25,6 +25,7 @@ public class JoinTest {
             e.printStackTrace();
         }
 
+        Thread.sleep(50000);
         System.out.println("main thread finished");
 
     }

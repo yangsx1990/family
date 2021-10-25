@@ -10,8 +10,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BlockingQueueTest {
 
-    public static void main(String[] args) {
-        AtomicInteger count=new AtomicInteger();
+    public static void main(String[] args) throws InterruptedException {
+        ArrayBlockingQueue<Integer> arrayBlockingQueue=new ArrayBlockingQueue<>(5);
+        arrayBlockingQueue.add(1);
+        arrayBlockingQueue.add(5);
+        arrayBlockingQueue.add(4);
+        arrayBlockingQueue.add(15);
+        arrayBlockingQueue.add(14);
+        arrayBlockingQueue.add(25);
+        arrayBlockingQueue.add(43);
+        System.out.println(arrayBlockingQueue.take());
+       /* AtomicInteger count=new AtomicInteger();
         int corePoolSize=1;
         int maximumPoolSize=3;
         long keepAliveTime=10;
@@ -50,6 +59,6 @@ public class BlockingQueueTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(count.toString());
+        System.out.println(count.toString());*/
     }
 }

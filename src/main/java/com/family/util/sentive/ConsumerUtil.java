@@ -32,6 +32,7 @@ public class ConsumerUtil {
 
     private  static void calc(List<Integer> ids, Consumer<Integer> consumer){
         ids.forEach(e->{
+            int status=1;
             consumer.accept(e);
         });
     }

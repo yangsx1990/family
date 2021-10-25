@@ -18,6 +18,17 @@ public class User implements Serializable{
 
    private transient Integer id;
 
+
+   private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -47,6 +58,7 @@ public class User implements Serializable{
         return "User{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
+                ", type=" + type +
                 '}';
     }
 }

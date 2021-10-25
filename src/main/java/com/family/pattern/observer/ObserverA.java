@@ -8,6 +8,6 @@ package com.family.pattern.observer;
 public class ObserverA implements Observer {
     @Override
     public void update(int version) {
-        System.out.println("A update: "+version);
+        System.out.println("com.family.A update: "+version);
     }
 }

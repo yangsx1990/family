@@ -24,7 +24,7 @@ public class StringTest {
        /*int[] nums=new int[]{1,3,4,1,4};
         System.out.println( singleNumber(nums) );*/
 
-       /* String str="A man, a plan, a canal: Panama";
+       /* String str="com.family.A man, a plan, a canal: Panama";
         str="Marge, let's \"[went].\" I await {news} telegram.";
         System.out.println(isPalindrome(str));*/
         /*for (int i=0;i<str.length();i++){
