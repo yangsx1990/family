@@ -14,4 +14,6 @@ public interface AgencyService {
     List<AgencyInfo> queryAgency(AgencyInfo agencyInfo);
 
     void test();
+
+    void procedureMainTest(Integer id);
 }

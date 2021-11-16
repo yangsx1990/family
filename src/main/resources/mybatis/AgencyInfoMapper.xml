@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.family.mapper.AgencyInfoMapper">
-  <resultMap id="BaseResultMap" type="com.family.model.AgencyInfo">
-    <!--
+  <!--<resultMap id="BaseResultMap" type="com.family.model.AgencyInfo">
+    &lt;!&ndash;
       WARNING - @mbg.generated
-    -->
+    &ndash;&gt;
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="agency_name" jdbcType="VARCHAR" property="agencyName" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -15,5 +15,13 @@
     <result column="agency_type" jdbcType="INTEGER" property="agencyType" />
     <result column="nation_id" jdbcType="VARCHAR" property="nationId" />
     <result column="enable_status" jdbcType="INTEGER" property="enableStatus" />
-  </resultMap>
+  </resultMap>-->
+
+  <update id="procedure" parameterType="int">
+    {call CALL_FAMILY(#{id_param,mode=IN})}
+  </update>
+
+  <insert id="insertTest">
+    INSERT INTO `employee`(`name`, `modify_flag`) VALUES ('insert_name', 1);
+  </insert>
 </mapper>

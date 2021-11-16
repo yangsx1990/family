@@ -5,6 +5,7 @@ import com.family.model.AgencyInfo;
 import com.family.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,4 +33,15 @@ public class AgencyServiceImpl implements AgencyService{
     public void test() {
 
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void procedureMainTest(Integer id) {
+        System.out.println("进行插入操作");
+        agencyInfoMapper.insertTest();
+        System.out.println("执行存储过程");
+        agencyInfoMapper.procedure(id);
+    }
+
+
 }
