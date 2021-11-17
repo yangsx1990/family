@@ -3,8 +3,3 @@ modify
 
 bbb
 
-ccc
-e
-f
-g
-h
