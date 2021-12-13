@@ -1,3 +1,4 @@
+/*
 package com.family.structure.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -13,13 +14,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+*/
 /**
  * @version V1.0
  * @author: yangsaixing
  * @date: 2021年11月29日 16时11分
  * @contact yangsaixing@huice.com
  * @company 掌上先机 (http://www.huice.com)
- */
+ *//*
+
 @Configuration
 //@AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisConfig {
@@ -47,10 +50,13 @@ public class RedisConfig {
         return template;
     }
 
-   /* @Bean("stringRedisTemplate")
+   */
+/* @Bean("stringRedisTemplate")
     public StringRedisTemplate stringRedisTemplate(LettuceConnectionFactory factory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate(factory);
         stringRedisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
         return stringRedisTemplate;
-    }*/
+    }*//*
+
 }
+*/

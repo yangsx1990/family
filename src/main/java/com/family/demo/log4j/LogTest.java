@@ -6,16 +6,16 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 */
 
-
+/*
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
+*//**
  * @author yangsaixing
  * @version v1.0
  * @description
  * @date 2021-12-13
- */
+ *//*
 public class LogTest {
     private static final Logger logger= LogManager.getLogger();
 
@@ -26,4 +26,4 @@ public class LogTest {
         logger.error("hello,{}",string);
     }
 
-}
+}*/

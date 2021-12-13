@@ -1,3 +1,4 @@
+/*
 package com.family.structure.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 
+*/
 /**
  * @version V1.0
  * @author: yangsaixing
  * @date: 2021年11月29日 16时16分
  * @contact yangsaixing@huice.com
  * @company 掌上先机 (http://www.huice.com)
- */
+ *//*
+
 @RestController
 public class RedisController {
 
@@ -40,3 +43,4 @@ public class RedisController {
         operations.set("key_1201_string", "中国");
     }
 }
+*/

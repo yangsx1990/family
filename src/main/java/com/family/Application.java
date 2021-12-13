@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @description
  * @date Created in 下午3:51 2017/11/2
  */
-//@MapperScan("com.family.mapper")
+@MapperScan("com.family.mapper")
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
